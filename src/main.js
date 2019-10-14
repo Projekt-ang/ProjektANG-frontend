@@ -1,5 +1,4 @@
 /*jshint node: true, esversion: 6 */
-
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
@@ -11,7 +10,6 @@ import VueModal from 'vue-js-modal'
 
 const req = axios.create({
   baseURL: "http://http://77.55.210.216:3000/",
-  withCredentials: true,
 });
 Vue.prototype.$req = req;
 
