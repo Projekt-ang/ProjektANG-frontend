@@ -5,6 +5,7 @@ import Home from './views/Home.vue';
 import About from './views/About.vue';
 import Login from './views/Login.vue';
 import TextTest from './views/TextTest.vue';
+import CreateReadingVideoTest from "./views/CreateReadingVideoTest.vue";
 
 Vue.use(Router);
 
@@ -32,5 +33,10 @@ export default new Router({
       name: 'login',
       component: Login,
     },
+    {
+      path:"/CreateReadingVideoTest",
+      name:" CreateReadingVideoTest",
+      component: CreateReadingVideoTest
+    }
   ]
 });
