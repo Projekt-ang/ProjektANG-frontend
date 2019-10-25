@@ -25,7 +25,7 @@
                 <div>Poprawna odpowiedź</div>
                 <input type="text" class="correct_answer" v-model="question.correct_answer" size='30' placeholder="Numer prawidłowej odpowiedzi"></input>
             </p>
-            <button @click="new_answer(question_id)" type="button">Nowa odpowiedź</button>
+            <button @click="new_answer(question_id)" type="button">Nowa odpowiedź na pytanie {{question_id+1}}</button>
             
         </div>            
         <button type="button" @click="new_question">Nowe pytanie</button>
@@ -75,6 +75,7 @@ export default{
         
         prepare_json(){
             let full_test = {
+                id:undefined,
                 tags:this.tags,
                 questions:this.questions
             }
@@ -83,15 +84,26 @@ export default{
             
             if(link_regex.test(this.text)) full_test.link = this.text;
             else full_test.text = this.text;
-            
             return full_test;
         },
         
         Send_Test(){
             let full_test = this.prepare_json();
+            this.$req.post()
             
-            document.getElementById("ReadVideoTest").reset();
-            alert("Poprawnie wysłano test");
+            this.$req.post('link',full_test).then(function(){
+                document.getElementById("ReadingVideoTest").reset();
+                alert("Test wysłano poprawnie");
+                
+            }).catch(function(error){
+                
+                console.log(error);
+                alert("Wystąpił błąd podczas przesyłania testu. Proszę spróbować ponownie");
+                
+            }).finally(function(){
+                
+            });
+          
             
         }
     }
