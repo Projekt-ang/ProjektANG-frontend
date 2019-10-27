@@ -2,37 +2,30 @@
 
 <div class="container">
     <div class="row">
-        <div class='col-12 Main-Container'>
+        <div class="col-12">
             <h1> Dodawanie nowego testu tekstowego / wideo</h1>
-            <form @submit.prevent='changeValue' id="ReadVideoTest" class='col-12'>
-                <div v-if="submitted">
-                    <h4> {{ prepareJson() }} </h4>
-                </div>
-                <textarea class='form-control' placeholder="Proszę tu wpisać tekst bądź wstawić link do wideo" v-model="text">
-                
-                </textarea><br/><br/>
-                
-                <div class='row'>
+            <form @submit.prevent="sendTest" id="ReadVideoTest" class="col-12">
+                <textarea class="form-control" placeholder="Proszę tu wpisać tekst bądź wstawić link do wideo" v-model="text"/>
+                <h3 class="m-4">Pytania:</h3>
+                <div class="row">
                     <div class="col-6" v-for="(question,questionIdx) in questions" :key="questionIdx">
-                        <div class='row'>
-                        <input type="text" class="col-10 question-input form-control form-text" v-model="question.question"  placeholder="Pytanie">
-                        <button type="button" class='btn btn-primary form-control col-1' title='usuń to pytanie' @click="removeQuestion(questionIdx)">X</button>
+                        <div class="row">
+                        <input type="text" class="col-10 form-control mb-2" v-model="question.question" placeholder="Pytanie">
+                        <button type="button" class="btn btn-danger form-control col-1" title="Usuń to pytanie" @click="removeQuestion(questionIdx)">X</button>
                         </div>
-                        <div class="answers" v-for="(answer,answerIdx) in question.answers" :key="answerIdx">
-                            <p class='row'>
-                                <input type="radio" class='col-2 form-control' v-model="correctAnswers[questionIdx]" :name="question+questionIdx" :value="answerIdx">
-                                <input type="text" class="col-8 answer_input form-control" v-model="answer.answer" placeholder="Odpowiedź">
-                                <button class='btn btn-primary col-1 form-control' type="button" @click="removeAnswer(questionIdx,answerIdX)" title="Usuń tę odpowiedź">X</button>
+                        <div class="answers form-check" v-for="(answer,answerIdx) in question.answers" :key="answerIdx">
+                            <p class="row">
+                                <input type="radio" class="col-1 form-control" v-model="correctAnswers[questionIdx]" :name="question+questionIdx" :value="answerIdx">
+                                <input type="text" class="col-7 form-control" v-model="answer.answer" placeholder="Odpowiedź">
+                                <button class="btn btn-danger col-1 form-control" type="button" @click="removeAnswer(questionIdx,answerIdX)" title="Usuń tę odpowiedź">X</button>
                             </p>      
                         </div>            
-                        <button @click="addAnswer(questionIdx)" class='new-answer btn btn-primary' type="button">Nowa odpowiedź</button>
+                        <button @click="addAnswer(questionIdx)" class="new-answer btn btn-primary" type="button">Nowa odpowiedź</button>
                     </div>   
-                </div>    
-                <br/><br/>     
-                <button type="button" class='btn btn-primary' @click="addQuestion">Nowe pytanie</button>
-                
-                <br/><br/>
-                <button type="submit" class='form-control'>Zatwierdź test</button>
+                </div>       
+                <button type="button" class='btn btn-primary m-1' @click="addQuestion">Nowe pytanie</button>
+                <br/>
+                <button type="submit" class="col-3 form-control btn btn-success mt-1 mb-3">Zatwierdź test</button>
             </form>
         </div>
     </div>
@@ -54,7 +47,7 @@
                         question:"",
                         answers:[
                             {
-                                answer:'',
+                                answer:"",
                                 correct: false
                             }
                         ]
@@ -104,7 +97,7 @@
             
             sendTest(){
                 let fullTest = this.prepareJson();
-                this.$req.post('http://localhost:8080/api/saveReadingVideoTest', fullTest).then(function(){
+                this.$req.post("http://localhost:8080/api/saveReadingVideoTest", fullTest).then(function(){
                     document.getElementById("ReadingVideoTest").reset();
                     alert("Test wysłano poprawnie");
                     
@@ -121,13 +114,7 @@
     
     
 <style>
-
-.new-answer{
-    margin-top:5%;
-    margin-bottom:5%;
-}
-
-.question-input{
-    margin-bottom:2%;
+input[type=radio]{
+  transform:scale(0.5);
 }
 </style>
