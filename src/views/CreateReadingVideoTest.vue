@@ -92,7 +92,7 @@
             
             sendTest(){
                 let fullTest = this.prepareJson();
-                this.$req.post("http://localhost:8080/api/readingVideoTest", fullTest).then(function(){
+                this.$req.post("http://18.195.242.27:8080/api/readingVideoTest", fullTest).then(function(){
                     document.getElementById("ReadingVideoTest").reset();
                     alert("Test wysłano poprawnie");
                     

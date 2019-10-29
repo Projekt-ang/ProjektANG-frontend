@@ -33,7 +33,7 @@ export default new Vuex.Store({
     login({commit}, user){
       return new Promise((resolve, reject) => {
         commit('auth_request');
-        axios({url: 'http://localhost:8088/api/authenticate', data: user, method: 'POST' })
+        axios({url: 'http://18.195.242.27:8088/api/authenticate', data: user, method: 'POST' })
         .then(resp => {
           console.log("TESTTES");
           const token = resp.data.jwttoken;

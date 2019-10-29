@@ -98,7 +98,7 @@ zzzzz<template>
             
             sendTest(){
                 let fullTest = this.prepareJson();
-                this.$req.put("http://localhost:8080/api/readingVideoTest/" + this.id, fullTest).then(function(){
+                this.$req.put("http://18.195.242.27:8080/api/readingVideoTest/" + this.id, fullTest).then(function(){
                     document.getElementById("ReadingVideoTest").reset();
                     alert("Test wysłano poprawnie");
                     

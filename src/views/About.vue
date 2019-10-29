@@ -92,7 +92,7 @@ export default {
     },
     deleteTest(id){
         if(confirm("Czy napewno chcesz usunac test "+ id)) {
-            this.$req.delete("http://localhost:8080/api/readingVideoTest/" + id).then(function(){
+            this.$req.delete("http://18.195.242.27:8080/api/readingVideoTest/" + id).then(function(){
                 document.getElementById("ReadingVideoTest").reset();
                 alert("Test usunięto poprawnie");
             

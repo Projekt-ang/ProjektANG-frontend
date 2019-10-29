@@ -27,7 +27,7 @@ export default {
   methods: {
     testApi: function() {
       axios
-        .get("http://localhost:8080/test")
+        .get("http://18.195.242.27:8080/test")
         .then(response => {
           this.content = response.data;
         })
