@@ -7,6 +7,7 @@ import axios from 'axios';
 import BootstrapVue from 'bootstrap-vue';
 import VueLodash from 'vue-lodash';
 import VueModal from 'vue-js-modal';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const req = axios.create({
   baseURL: "http://18.195.242.27:8080/",

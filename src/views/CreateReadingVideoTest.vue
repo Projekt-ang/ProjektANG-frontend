@@ -15,7 +15,7 @@
                         </div>
                         <div class="answers form-check" v-for="(answer,answerIdx) in question.answers" :key="answerIdx">
                             <p class="row">
-                                <input type="radio" class="col-1 form-control" v-model="correctAnswers[questionIdx]" :name="question+questionIdx" :value="answerIdx">
+                                <input type="radio" class="col-1 form-control" v-model="correctAnswers[questionIdx]" :name="question+questionIdx" :value="answerIdx" required>
                                 <input type="text" class="col-7 form-control" v-model="answer.answer" placeholder="Odpowiedź" required>
                                 <button class="btn btn-danger col-1 form-control" type="button" @click="removeAnswer(questionIdx,answerIdx)" title="Usuń tę odpowiedź">X</button>
                             </p>      
@@ -93,7 +93,7 @@
             sendTest(){
                 let fullTest = this.prepareJson();
                 this.$req.post("http://18.195.242.27:8080/api/readingVideoTest", fullTest).then(function(){
-                    document.getElementById("ReadingVideoTest").reset();
+                    //document.getElementById("ReadingVideoTest").reset()
                     alert("Test wysłano poprawnie");
                     
                 }).catch(function(error){
