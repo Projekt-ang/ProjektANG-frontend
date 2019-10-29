@@ -1,12 +1,13 @@
-<template>
+zzzzz<template>
 
 <div class="container">
     <div class="row">
         <div class="col-12">
             <h1> Dodawanie nowego testu tekstowego / wideo</h1>
             <form @submit.prevent="sendTest" id="ReadVideoTest" class="col-12">
-                <textarea class="form-control" placeholder="Proszę tu wpisać tekst bądź wstawić link do wideo" v-model="text" required/>
+                <textarea class="form-control" placeholder="Proszę tu wpisać tekst bądź wstawić link do wideo" v-model="text"/>
                 <h3 class="m-4">Pytania:</h3>
+                {{correctAnswers}}
                 <div class="row">
                     <div class="col-6" v-for="(question,questionIdx) in questions" :key="questionIdx">
                         <div class="row">
@@ -15,7 +16,7 @@
                         </div>
                         <div class="answers form-check" v-for="(answer,answerIdx) in question.answers" :key="answerIdx">
                             <p class="row">
-                                <input type="radio" class="col-1 form-control" v-model="correctAnswers[questionIdx]" :name="question+questionIdx" :value="answerIdx">
+                                <input type="radio" class="col-1 form-control" v-model="correctAnswers[questionIdx]" :name="question+questionIdx" :value="answerIdx" :checked="correctAnswers[questionIdx]" required>
                                 <input type="text" class="col-7 form-control" v-model="answer.answer" placeholder="Odpowiedź" required>
                                 <button class="btn btn-danger col-1 form-control" type="button" @click="removeAnswer(questionIdx,answerIdx)" title="Usuń tę odpowiedź">X</button>
                             </p>      
@@ -34,11 +35,13 @@
  </template>
   
     <script>
+    import axios from "axios"
     
     export default{
         name:"ReadingVideoTest",
         data(){
             return{
+                id: undefined,
                 text: undefined,
                 correctAnswers: [],
                 questions:[
@@ -69,6 +72,9 @@
             
             prepareJson(){
                 this.questions.forEach((question, idx) => {
+                    question.answers.forEach((answer) => { 
+                        answer.correct = false;
+                    })
                     question.answers[this.correctAnswers[idx]].correct = true;
                 })
                 let fullTest = {
@@ -92,7 +98,7 @@
             
             sendTest(){
                 let fullTest = this.prepareJson();
-                this.$req.post("http://localhost:8080/api/readingVideoTest", fullTest).then(function(){
+                this.$req.put("http://localhost:8080/api/readingVideoTest/" + this.id, fullTest).then(function(){
                     document.getElementById("ReadingVideoTest").reset();
                     alert("Test wysłano poprawnie");
                     
@@ -102,7 +108,25 @@
                     alert("Wystąpił błąd podczas przesyłania testu. Proszę spróbować ponownie");
                     
                 });
-            }
+            },
+        },
+        mounted(){
+              axios
+                .get("http://77.55.210.216:3000/textTests/"+this.$route.params.id)
+                .then(response => {
+                    this.id = response.data.id
+                    this.text = response.data.text;
+                    this.questions = response.data.questions;
+                    
+                    this.questions.forEach((question, idx) => {
+                        question.answers.forEach((answer, idx2) => { 
+                            if (answer.correct === true){
+                                this.correctAnswers[idx] = idx2;
+                            }
+                        })                      
+                    })
+                })
+                
         }
     }
     </script>
