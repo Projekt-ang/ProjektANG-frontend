@@ -1,5 +1,6 @@
 /*jshint node: true, esversion: 6 */
 import Vue from 'vue';
+import Vue2Editor from "vue2-editor";
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -18,6 +19,7 @@ Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueLodash);
 Vue.use(VueModal);
+Vue.use(Vue2Editor);
 
 new Vue({
   router,
