@@ -3,11 +3,10 @@ zzzzz<template>
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1> Dodawanie nowego testu tekstowego / wideo</h1>
+            <h1> Edycja testu tekstowego / wideo</h1>
             <form @submit.prevent="sendTest" id="ReadVideoTest" class="col-12">
                 <textarea class="form-control" placeholder="Proszę tu wpisać tekst bądź wstawić link do wideo" v-model="text"/>
                 <h3 class="m-4">Pytania:</h3>
-                {{correctAnswers}}
                 <div class="row">
                     <div class="col-6" v-for="(question,questionIdx) in questions" :key="questionIdx">
                         <div class="row">
