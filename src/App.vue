@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/CreateReadingVideoTest">Dodaj test</router-link> |
-      <router-link to="/About">Lista testów</router-link> |
+      <router-link to="/editReadingVideoTest">edycja testów</router-link> |
+      <router-link to='/About'>Lista testów</router-link>
       <span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
     </div>
     <router-view/>
