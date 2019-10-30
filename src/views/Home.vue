@@ -2,7 +2,6 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
 
-    <button @click="testApi()">API test</button>
     <p v-if="content">{{this.content}}</p>
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
