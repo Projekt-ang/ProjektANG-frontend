@@ -7,6 +7,7 @@ import axios from 'axios';
 import BootstrapVue from 'bootstrap-vue';
 import VueLodash from 'vue-lodash';
 import VueModal from 'vue-js-modal';
+import Vue2Editor from 'vue2-editor';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const req = axios.create({
@@ -18,6 +19,7 @@ Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueLodash);
 Vue.use(VueModal);
+Vue.use(Vue2Editor);
 
 new Vue({
   router,

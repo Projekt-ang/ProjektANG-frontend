@@ -1,11 +1,12 @@
-zzzzz<template>
+<template>
 
 <div class="container">
     <div class="row">
         <div class="col-12">
             <h1> Edycja testu tekstowego / wideo</h1>
             <form @submit.prevent="sendTest" id="ReadVideoTest" class="col-12">
-                <textarea class="form-control" placeholder="Proszę tu wpisać tekst bądź wstawić link do wideo" v-model="text"/>
+                <!--<textarea class="form-control" placeholder="Proszę tu wpisać tekst bądź wstawić link do wideo" v-model="text"/>-->
+                <vue-editor v-model="text" required />
                 <h3 class="m-4">Pytania:</h3>
                 <div class="row">
                     <div class="col-6" v-for="(question,questionIdx) in questions" :key="questionIdx">
@@ -97,7 +98,7 @@ zzzzz<template>
             
             sendTest(){
                 let fullTest = this.prepareJson();
-                this.$req.put("http://18.195.242.27:8080/api/readingVideoTest/" + this.id, fullTest).then(function(){
+                this.$req.put("http://localhost:8080/api/readingVideoTest/" + this.id, fullTest).then(function(){
                     document.getElementById("ReadingVideoTest").reset();
                     alert("Test wysłano poprawnie");
                     
