@@ -92,12 +92,12 @@ export default {
     },
     deleteTest(id){
         if(confirm("Czy napewno chcesz usunac test "+ id)) {
-            this.$req.delete("http://18.195.242.27:8080/api/readingVideoTest/" + id).then(function(){
-                document.getElementById("ReadingVideoTest").reset();
+            this.$req.delete("http://18.195.242.27:8080/api/readingVideoTest/" + id).then(() =>{
                 alert("Test usunięto poprawnie");
+                this.testy = this._.filter(this.testy, (t) => {return t.id != id})
             
-            }).catch(function(error){
-                    
+            }).catch(error => {
+                this.testy = this._.filter(this.testy, (t) => {return t.id != id})
                 console.log(error);
                 alert("Wystąpił błąd podczas usuwania testu. Proszę spróbować ponownie");               
             });

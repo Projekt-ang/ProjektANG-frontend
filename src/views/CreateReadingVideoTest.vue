@@ -8,7 +8,7 @@
                 <!--<textarea class="form-control" placeholder="Proszę tu wpisać tekst bądź wstawić link do wideo" v-model="text" required/>-->
                 <div class="row">
                     <div class="col-1"/>
-                    <input type="text" class="col-5 form-control m-2" v-model="title" placeholder="Tytuł" required>
+                    <input type="text" class="col-5 form-control m-2" v-model="name" placeholder="Tytuł" required>
                     <input type="text" class="col-5 form-control m-2" v-model="author" placeholder="Autor" required>
                     <div class="col-1"/>
                 </div>
@@ -49,7 +49,7 @@
                 text: "",
                 correctAnswers: [],
                 author: "",
-                title: "",
+                name: "",
                 questions:[
                     {
                         question:"",
@@ -86,7 +86,7 @@
             
                 fullTest.text = this.text;
                 fullTest.author = this.author;
-                fullTest.title = this.title
+                fullTest.name = this.name
                 return fullTest;
             },
             
@@ -101,14 +101,11 @@
             sendTest(){
                 let fullTest = this.prepareJson();
                 this.$req.post("http://18.195.242.27:8080/api/readingVideoTest", fullTest).then(function(){
-                    //document.getElementById("ReadingVideoTest").reset()
                     alert("Test wysłano poprawnie");
                     
                 }).catch(function(error){
-                    
                     console.log(error);
                     alert("Wystąpił błąd podczas przesyłania testu. Proszę spróbować ponownie");
-                    
                 });
             }
         }
