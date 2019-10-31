@@ -36,7 +36,7 @@ export default {
   },
   mounted() {
   axios
-    .get("http://77.55.210.216:3000/textTests/"+this.$route.params.id)
+    .get("http://18.195.242.27:8080/readingVideoTests/"+this.$route.params.id)
     .then(response => {
       this.test = response.data;
     })

@@ -105,7 +105,7 @@
             
             sendTest(){
                 let fullTest = this.prepareJson();
-                this.$req.put("http://http://18.195.242.27/:8080/api/readingVideoTest/" + this.id, fullTest).then(function(){
+                this.$req.put("http://18.195.242.27:8080/api/readingVideoTest/" + this.id, fullTest).then(function(){
                     //document.getElementById("ReadingVideoTest").reset();
                     alert("Test wysłano poprawnie");
                 }).catch(function(error){
@@ -118,7 +118,7 @@
         },
         mounted(){
               axios
-                .get("http://http://18.195.242.27/readingVideoTests/"+this.$route.params.id)
+                .get("http://18.195.242.27:8080/readingVideoTests/"+this.$route.params.id)
                 .then(response => {
                     this.id = response.data.id
                     this.text = response.data.text;
