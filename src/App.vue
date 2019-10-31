@@ -1,34 +1,38 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/CreateReadingVideoTest">Dodaj test</router-link> |
-      <router-link to="/editReadingVideoTest">edycja testów</router-link> |
-      <router-link to='/About'>Lista testów</router-link>
-      <span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
+      <router-link to="/CreateReadingVideoTest">Dodaj test</router-link>|
+      <router-link to="/editReadingVideoTest">edycja testów</router-link>|
+      <router-link to="/About">Lista testów</router-link>
+      <span v-if="isLoggedIn">
+        |
+        <a @click="logout">Logout</a>
+      </span>
     </div>
     <router-view/>
   </div>
 </template>
 
 <script>
-  export default {
-    computed : {
-      isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
-    },
-    methods: {
-      logout: function () {
-        this.$store.dispatch('logout')
-        .then(() => {
-          this.$router.push('/login')
-        })
-      }
-    },
+export default {
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    }
+  },
+  methods: {
+    logout: function() {
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/login");
+      });
+    }
   }
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

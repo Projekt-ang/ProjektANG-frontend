@@ -9,28 +9,17 @@
 
 <script>
 // @ is an alias to /src
-import axios from 'axios';
-
-import HelloWorld from '@/components/HelloWorld.vue'
+import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: 'home',
-  data(){
-      return {
-        content: undefined
-      }
-    },
+  name: "home",
+  data() {
+    return {
+      content: undefined
+    };
+  },
   components: {
     HelloWorld
-  },
-  methods: {
-    testApi: function() {
-      axios
-        .get("http://18.195.242.27:8080/test")
-        .then(response => {
-          this.content = response.data;
-        })
-    }
   }
-}
+};
 </script>
