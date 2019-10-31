@@ -5,7 +5,12 @@
         <div class="col-12">
             <h1> Edycja testu tekstowego / wideo</h1>
             <form @submit.prevent="sendTest" id="ReadVideoTest" class="col-12">
-                <!--<textarea class="form-control" placeholder="Proszę tu wpisać tekst bądź wstawić link do wideo" v-model="text"/>-->
+                <div class="row">
+                    <div class="col-1"/>
+                    <input type="text" class="col-5 form-control m-2" v-model="this.title" placeholder="Tytuł" required>
+                    <input type="text" class="col-5 form-control m-2" v-model="this.author" placeholder="Autor" required>
+                    <div class="col-1"/>
+                </div>
                 <vue-editor v-model="text" required />
                 <h3 class="m-4">Pytania:</h3>
                 <div class="row">
@@ -21,7 +26,7 @@
                                 <button class="btn btn-danger col-1 form-control" type="button" @click="removeAnswer(questionIdx,answerIdx)" title="Usuń tę odpowiedź">X</button>
                             </p>      
                         </div>            
-                        <button @click="addAnswer(questionIdx)" class="new-answer btn btn-primary" type="button">Nowa odpowiedź</button>
+                        <button @click="addAnswer(questionIdx)" class="new-answer btn btn-primary mb-3" type="button">Nowa odpowiedź</button>
                     </div>   
                 </div>       
                 <button type="button" class='btn btn-primary m-1' @click="addQuestion">Nowe pytanie</button>
@@ -43,6 +48,8 @@
             return{
                 id: undefined,
                 text: undefined,
+                title: undefined,
+                author: undefined,
                 correctAnswers: [],
                 questions:[
                     {
@@ -98,10 +105,9 @@
             
             sendTest(){
                 let fullTest = this.prepareJson();
-                this.$req.put("http://localhost:8080/api/readingVideoTest/" + this.id, fullTest).then(function(){
-                    document.getElementById("ReadingVideoTest").reset();
+                this.$req.put("http://http://18.195.242.27/:8080/api/readingVideoTest/" + this.id, fullTest).then(function(){
+                    //document.getElementById("ReadingVideoTest").reset();
                     alert("Test wysłano poprawnie");
-                    
                 }).catch(function(error){
                     
                     console.log(error);
@@ -112,11 +118,13 @@
         },
         mounted(){
               axios
-                .get("http://77.55.210.216:3000/textTests/"+this.$route.params.id)
+                .get("http://http://18.195.242.27/readingVideoTests/"+this.$route.params.id)
                 .then(response => {
                     this.id = response.data.id
                     this.text = response.data.text;
                     this.questions = response.data.questions;
+                    this.author = response.data.author;
+                    this.title = response.data.title;
                     
                     this.questions.forEach((question, idx) => {
                         question.answers.forEach((answer, idx2) => { 

@@ -6,6 +6,12 @@
             <h1> Dodawanie nowego testu tekstowego / wideo</h1>
             <form @submit.prevent="sendTest" id="ReadVideoTest" class="col-12">
                 <!--<textarea class="form-control" placeholder="Proszę tu wpisać tekst bądź wstawić link do wideo" v-model="text" required/>-->
+                <div class="row">
+                    <div class="col-1"/>
+                    <input type="text" class="col-5 form-control m-2" v-model="this.title" placeholder="Tytuł" required>
+                    <input type="text" class="col-5 form-control m-2" v-model="this.author" placeholder="Autor" required>
+                    <div class="col-1"/>
+                </div>
                 <vue-editor v-model="text" required />
                 <h3 class="m-4">Pytania:</h3>
                 <div class="row">
@@ -21,7 +27,7 @@
                                 <button class="btn btn-danger col-1 form-control" type="button" @click="removeAnswer(questionIdx,answerIdx)" title="Usuń tę odpowiedź">X</button>
                             </p>      
                         </div>            
-                        <button @click="addAnswer(questionIdx)" class="new-answer btn btn-primary" type="button">Nowa odpowiedź</button>
+                        <button @click="addAnswer(questionIdx)" class="new-answer btn btn-primary mb-3" type="button">Nowa odpowiedź</button>
                     </div>   
                 </div>       
                 <button type="button" class='btn btn-primary m-1' @click="addQuestion">Nowe pytanie</button>
@@ -42,6 +48,8 @@
             return{
                 text: undefined,
                 correctAnswers: [],
+                author: undefined,
+                title: undefined,
                 questions:[
                     {
                         question:"",
@@ -75,11 +83,10 @@
                 let fullTest = {
                     questions: this.questions
                 }
-                
-                //let link_regex = /(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
-                
-                //if(link_regex.test(this.text)) fullTest.link = this.text;
+            
                 fullTest.text = this.text;
+                fullTest.author = this.author;
+                fullTest.title = this.title
                 return fullTest;
             },
             

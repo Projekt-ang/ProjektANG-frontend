@@ -17,7 +17,7 @@
             <tbody>
                 <template v-for="(test, idx) in this.testy">
                     <tr @click="expand(test.id)" :key="idx">
-                        <td class="align-middle"> <router-link :to="'/about/'+test.id">nazwa testu reading {{test.id}}</router-link> </td>
+                        <td class="align-middle"> <router-link :to="'/about/'+test.id"><p v-if="!test.title">Brak nazwy</p>{{test.title}}</router-link> </td>
                         <td class="align-middle">Reading</td>
                         <td class="align-middle">10</td>
                         <td class="align-middle">
@@ -107,9 +107,9 @@ export default {
   },
   mounted() {
     axios
-        .get("http://77.55.210.216:3000/textTests")
+        .get("http://18.195.242.27:8080/readingVideoTests")
         .then(response => {
-          this.testy = response.data;
+          this.testy = response.data._embedded.readingVideoTests;
         })
   }
 }
