@@ -7,8 +7,8 @@
             <form @submit.prevent="sendTest" id="ReadVideoTest" class="col-12">
                 <div class="row">
                     <div class="col-1"/>
-                    <input type="text" class="col-5 form-control m-2" v-model="this.title" placeholder="Tytuł" required>
-                    <input type="text" class="col-5 form-control m-2" v-model="this.author" placeholder="Autor" required>
+                    <input type="text" class="col-5 form-control m-2" v-model="title" placeholder="Tytuł" required>
+                    <input type="text" class="col-5 form-control m-2" v-model="author" placeholder="Autor" required>
                     <div class="col-1"/>
                 </div>
                 <vue-editor v-model="text" required />
@@ -47,9 +47,9 @@
         data(){
             return{
                 id: undefined,
-                text: undefined,
-                title: undefined,
-                author: undefined,
+                text: "",
+                title: "",
+                author: "",
                 correctAnswers: [],
                 questions:[
                     {

@@ -8,8 +8,8 @@
                 <!--<textarea class="form-control" placeholder="Proszę tu wpisać tekst bądź wstawić link do wideo" v-model="text" required/>-->
                 <div class="row">
                     <div class="col-1"/>
-                    <input type="text" class="col-5 form-control m-2" v-model="this.title" placeholder="Tytuł" required>
-                    <input type="text" class="col-5 form-control m-2" v-model="this.author" placeholder="Autor" required>
+                    <input type="text" class="col-5 form-control m-2" v-model="title" placeholder="Tytuł" required>
+                    <input type="text" class="col-5 form-control m-2" v-model="author" placeholder="Autor" required>
                     <div class="col-1"/>
                 </div>
                 <vue-editor v-model="text" required />
@@ -46,10 +46,10 @@
         name:"ReadingVideoTest",
         data(){
             return{
-                text: undefined,
+                text: "",
                 correctAnswers: [],
-                author: undefined,
-                title: undefined,
+                author: "",
+                title: "",
                 questions:[
                     {
                         question:"",
