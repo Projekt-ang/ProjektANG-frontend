@@ -17,7 +17,7 @@
             <tbody>
                 <template v-for="(test, idx) in this.testy">
                     <tr @click="expand(test.id)" :key="idx">
-                        <td class="align-middle"> <router-link :to="'/about/'+test.id"><p v-if="!test.title">Brak nazwy</p>{{test.title}}</router-link> </td>
+                        <td class="align-middle"> <router-link :to="'/about/'+test.id"><p v-if="!test.name">Brak nazwy</p>{{test.name}}</router-link> </td>
                         <td class="align-middle">Reading</td>
                         <td class="align-middle">10</td>
                         <td class="align-middle">
