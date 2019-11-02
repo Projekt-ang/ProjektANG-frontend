@@ -159,9 +159,7 @@
 
 
             isChecked(tagName) {
-                for (var i in this.tags) {
-                    if (this.tags[i].text == tagName) return true;
-                }
+                if (this.tags.find(element => element.text === tagName)) return true;
                 return false;
             },
 
