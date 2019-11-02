@@ -30,7 +30,8 @@
           </div>
           
           <div id="tags" class="row">
-              <span v-for="(tag,tagId) in allTags" :key="tagId" @click='toggleTag(tag.text)' class='tag-class border mr-2 mb-2' v-if="beginsWith(tag.text) && tagId<tagLimit">{{tag.text}}</span>
+              <span v-for="(tag,tagId) in filteredTags" :key="tagId" v-bind:class="{ 'colored-tag': isChecked(tag.text)}" @click='toggleTag(tag.text)' class='tag-class border mr-2 mb-2'>{{tag.text}}</span>
+
               
               <button type="button" @click="newTag" class='btn btn-primary mb-2 form-control'>Dodaj tag</button>
           </div>
@@ -160,6 +161,14 @@
                 });
             },
 
+
+            isChecked(tagName) {
+                for (var i in this.tags) {
+                    if (this.tags[i].text == tagName) return true;
+                }
+                return false;
+            },
+
             prepareJson() {
                 this.questions.forEach((question, idx) => {
                     question.answers[this.correctAnswers[idx]].correct = true;
@@ -217,6 +226,22 @@
             this.$req.get('/tags').then(response => {
                 this.allTags = response.data._embedded.tags;
             });
+        },
+
+        computed: {
+
+            filteredTags: function() {
+                let tags = this.allTags.filter((element) => {
+                    return this.beginsWith(element.text);
+                })
+
+                if (tags.length > this.tagLimit) tags.splice(this.tagLimit);
+
+                return tags;
+            },
+
+
+
         }
     };
 </script>
@@ -229,5 +254,9 @@
     
     .tag-class:hover {
         cursor: pointer;
+    }
+    
+    .colored-tag {
+        background-color: lawngreen;
     }
 </style>
