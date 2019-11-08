@@ -6,7 +6,8 @@ import About from './views/About.vue';
 import Login from './views/Login.vue';
 import TextTest from './views/TextTest.vue';
 import CreateReadingVideoTest from "./views/CreateReadingVideoTest.vue";
-import editReadingVideoTest from "./views/editReadingVideoTest.vue";
+import EditReadingVideoTest from "./views/EditReadingVideoTest.vue";
+import CreateBlankTest from "./views/CreateBlankTest.vue";
 
 Vue.use(Router);
 
@@ -39,9 +40,14 @@ export default new Router({
             component: CreateReadingVideoTest
         },
         {
-            path: "/about/editReadingVideoTest/:id",
-            name: "editReadingVideoTest",
-            component: editReadingVideoTest
+            path: "/about/EditReadingVideoTest/:id",
+            name: "EditReadingVideoTest",
+            component: EditReadingVideoTest
+        },
+        {
+            path: "/CreateBlankTest",
+            name: "CreateBlankTest",
+            component: CreateBlankTest
         }
     ]
 });
