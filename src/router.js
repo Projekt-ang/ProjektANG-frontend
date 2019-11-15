@@ -8,6 +8,9 @@ import TextTest from './views/TextTest.vue';
 import CreateReadingVideoTest from "./views/CreateReadingVideoTest.vue";
 import EditReadingVideoTest from "./views/EditReadingVideoTest.vue";
 import CreateBlankTest from "./views/CreateBlankTest.vue";
+import CreateGlossaryDefinition from "./views/CreateGlossaryDefinition.vue";
+import ReadGlossary from "./views/ReadGlossary.vue";
+import EditGlossary from "./views/EditGlossary.vue";
 
 Vue.use(Router);
 
@@ -48,6 +51,21 @@ export default new Router({
             path: "/CreateBlankTest",
             name: "CreateBlankTest",
             component: CreateBlankTest
+        },
+        {
+            path: "/CreateGlossaryDefinition",
+            name: "CreateGlossaryDefinition",
+            component: CreateGlossaryDefinition
+        },
+        {
+            path: "/ReadGlossary",
+            name: "ReadGlossary",
+            component: ReadGlossary
+        },
+        {
+            path: "/EditGlossary/:id",
+            name: "EditGlossary",
+            component: EditGlossary
         }
     ]
 });
