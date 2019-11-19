@@ -11,6 +11,8 @@ import CreateBlankTest from "./views/CreateBlankTest.vue";
 import CreateGlossaryDefinition from "./views/CreateGlossaryDefinition.vue";
 import ReadGlossary from "./views/ReadGlossary.vue";
 import EditGlossary from "./views/EditGlossary.vue";
+import EmailVerification from "./views/EmailVerification.vue";
+import Verified from "./views/Verified.vue";
 
 Vue.use(Router);
 
@@ -66,6 +68,16 @@ export default new Router({
             path: "/EditGlossary/:id",
             name: "EditGlossary",
             component: EditGlossary
+        },
+        {
+            path: "/add-email",
+            name: "EmailVerification",
+            component: EmailVerification
+        },
+        {
+            path: "/verify/:token",
+            name: "Verified",
+            component: Verified
         }
     ]
 });
