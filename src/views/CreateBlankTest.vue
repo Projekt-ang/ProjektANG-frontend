@@ -51,35 +51,28 @@
           <vue-editor v-model="text" required/>
 
           <div class="row">
-            <button type="button" @click="generateAnswers" class="col-12 btn-primary btn mt-2">
-              Wygeneruj
-              odpowiedzi
-            </button>
-          </div>
-
-          <div class="row">
-            <div class="col-6" v-for="(blank,blankId) in blankSymbols" :key="blankId">
-              <div class="col-12 mt-2">Słowo: {{blankSymbols[blankId].answers[0].answer}}</div>
-              <div class="col-12" v-for="(answers,answerId) in blank.answers" :key="answerId">
-                <div class="row mt-2" v-if="answerId>0">
-                  <input type="text" v-model="answers.answer" class="col-8">
+            <div class="col-6" v-for="(blank,blankId) in tempBlanks" :key="blankId">
+              <div>Luka {{ blank }}</div>
+              <div class="row">
+                <div
+                  class="col-12 mt-2"
+                  v-for="(answer,answerId) in blankSymbols[blankId].answers"
+                  :key="answerId"
+                >
+                  <input type="text" class="col-9 mr-2" v-if="answerId>0" v-model="answer.answer">
                   <button
                     type="button"
+                    class="col-2 btn-danger"
                     @click="removeAnswer(blankId,answerId)"
-                    class="col-2 btn form-control btn-danger"
+                    v-if="answerId>0"
                   >X</button>
                 </div>
               </div>
-              <div class="row">
-                <button
-                  type="button"
-                  @click="addAnswer(blankId)"
-                  class="col-10 btn btn-primary mt-2"
-                >
-                  Dodaj
-                  odpowiedź
-                </button>
-              </div>
+              <button
+                type="button"
+                class="btn-primary mt-3"
+                @click="addAnswer(blankId)"
+              >Dodaj odpowiedź</button>
             </div>
           </div>
           <button type="submit" class="col-12 form-control btn btn-success mt-1 mb-3">Zatwierdź test</button>
@@ -134,25 +127,6 @@ export default {
     isChecked(tagName) {
       if (this.tags.find(element => element.text === tagName)) return true;
       return false;
-    },
-
-    generateAnswers() {
-      let regex = /\{.*?\}/g;
-      let match = this.text.match(regex);
-      this.blankSymbols = [];
-      for (var i in match) {
-        this.blankSymbols.push({
-          answers: []
-        });
-
-        match[i] = match[i].replace("{", "");
-        match[i] = match[i].replace("}", "");
-
-        this.blankSymbols[i].answers.push({
-          answer: match[i],
-          correct: true
-        });
-      }
     },
 
     prepareJson() {
@@ -217,6 +191,31 @@ export default {
       if (tags.length > this.tagLimit) tags.splice(this.tagLimit);
 
       return tags;
+    },
+
+    tempBlanks: function() {
+      let regex = /\{.*?\}/g;
+      let match = this.text.match(regex);
+      let copy = this.blankSymbols;
+      this.blankSymbols = [];
+      for (var i in match) {
+        match[i] = match[i].replace("{", "");
+        match[i] = match[i].replace("}", "");
+
+        this.blankSymbols.push({
+          answers: [
+            {
+              answer: match[i],
+              correct: true
+            }
+          ]
+        });
+      }
+
+      for (var i in copy) {
+        this.blankSymbols[i].answers = copy[i].answers;
+      }
+      return match;
     }
   }
 };
