@@ -7,6 +7,7 @@
     <table table class="table table-striped table-hover table-bordered w-50 mx-auto">
       <thead>
         <th>Nazwa</th>
+        <th>Autor</th>
         <th>Rodzaj testu</th>
         <th>Grupy</th>
         <th style="width: 15%"></th>
@@ -20,6 +21,10 @@
                 {{test.name}}
               </router-link>
             </td>
+            <td class="align-middle">
+              <p v-if="!test.author"></p>
+              {{test.author}}
+            </td>
             <td class="align-middle">Reading</td>
             <td class="align-middle">10</td>
             <td class="align-middle">
@@ -30,12 +35,15 @@
             </td>
           </tr>
           <tr @click="expand(test.id)" v-if="test.id in expanded" :key="idx">
-            <td :colspan="4">
+            <td :colspan="5">
               <div class="accordian-body">
                 <div class="row justify-content-md-center">
                   <div class="col-11">
                     <h3 class="m-2">Tekst</h3>
-                    <p class="text-justify">{{test.text}}</p>
+                    <div
+                      v-html="test.text"
+                    >
+                    </div>
 
                     <div class="m-2">
                       <div class="row justify-content-md-center">

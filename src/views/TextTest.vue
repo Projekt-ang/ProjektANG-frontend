@@ -1,18 +1,31 @@
 <template>
-  <div class="about">
-    <h1>Lista testów</h1>
+  <div class="align-middle">
     <div v-if="test">
-      <h2>Przeczytaj tekst i odpowiedz na pytania</h2>
-      <p>{{this.test.text}}</p>
-      <h3>Pytania</h3>
-      <div v-for="(question, idx) in this.test.questions" :key="idx">
-        <h4>{{question.question}}</h4>
-        <ul>
-          <li v-for="(answer, idx2) in question.answers" :key="idx2">
-            <input type="radio" :name="'odp'+idx">
-            {{answer.answer}}
-          </li>
-        </ul>
+      <div class="row d-flex justify-content-center">
+        <h2>Przeczytaj tekst i odpowiedz na pytania</h2>
+        <div class="col-md-9">
+          <p v-html="this.test.text"></p>
+          <h3>Pytania</h3>
+          <div class="row">
+            <div class="col-6" v-for="(question, idx) in this.test.questions" :key="idx">
+              <h4 class="m-2">{{question.question}}</h4>
+              <div
+                class="form-check"
+                v-for="(answer, idx2) in question.answers"
+                :key="idx2"
+              >
+                <p class="row">
+                  <div class="col-sm">
+                    <input type="radio" class="form-check-input" :name="'odp'+idx">
+                    <label class="form-check-label" for="'odp'+idx">
+                      {{answer.answer}}
+                    </label>
+                  </div>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -47,5 +60,8 @@ export default {
 <style>
 li {
   list-style-type: none;
+}
+input[type="radio"] {
+  transform:scale(0.5);
 }
 </style>
