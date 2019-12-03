@@ -1,37 +1,48 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-
-    <button @click="testApi()">API test</button>
-    <p v-if="content">{{this.content}}</p>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <home-user v-if="role === 'USER'"/>
+    <home-lektor v-else-if="role === 'LEKTOR'"/>
+    <home-admin v-else-if="role === 'ADMIN'"/>
+    <login v-else/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import axios from 'axios';
+import axios from "axios";
 
-import HelloWorld from '@/components/HelloWorld.vue'
+import homeUser from "@/components/HomeUser.vue";
+import homeLektor from "@/components/HomeLektor.vue";
+import homeAdmin from "@/components/HomeAdmin.vue";
+import login from "@/components/Login.vue";
 
 export default {
-  name: 'home',
-  data(){
-      return {
-        content: undefined
-      }
-    },
+  name: "home",
   components: {
-    HelloWorld
+    homeUser,
+    homeLektor,
+    homeAdmin,
+    login
+  },
+  data() {
+    return {
+      content: undefined
+    };
   },
   methods: {
     testApi: function() {
-      axios
-        .get("http://localhost:8080/test")
-        .then(response => {
-          this.content = response.data;
-        })
+      axios.get("http://localhost:8080/test").then(response => {
+        this.content = response.data;
+      });
+    }
+  },
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    },
+    role: function() {
+      return this.$store.getters.getRole;
     }
   }
-}
+};
 </script>

@@ -3,7 +3,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import About from './views/About.vue';
-import Login from './views/Login.vue';
 import TextTest from './views/TextTest.vue';
 import CreateReadingVideoTest from "./views/CreateReadingVideoTest.vue";
 import editReadingVideoTest from "./views/editReadingVideoTest.vue";
@@ -28,11 +27,6 @@ export default new Router({
       path: '/about/:id',
       name: 'test',
       component: TextTest,
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
     },
     {
       path:"/CreateReadingVideoTest",

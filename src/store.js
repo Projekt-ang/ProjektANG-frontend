@@ -66,6 +66,7 @@ export default new Vuex.Store({
   },
   getters : {
     isLoggedIn: state => !!state.token,
-    authStatus: state => state.authStatus
+    authStatus: state => state.authStatus,
+    getRole: state => state.user.roles
   }
 });
