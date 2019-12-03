@@ -1,33 +1,17 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/CreateReadingVideoTest">Dodaj test</router-link>|
-      <router-link to="/About">Lista testów</router-link>|
-      <router-link to="/CreateBlankTest">Dodaj test z lukami</router-link>|
-      <router-link to="/CreateGlossaryDefinition">Nowa definicja</router-link>|
-      <router-link to="/ReadGlossary">Glosariusz</router-link>
-      <span v-if="isLoggedIn">
-        |
-        <a @click="logout">Logout</a>
-      </span>
-    </div>
+    <navbar/>
     <router-view/>
   </div>
 </template>
 
 <script>
+import navbar from "@/components/Navbar.vue";
+
 export default {
-  computed: {
-    isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn;
-    }
-  },
-  methods: {
-    logout: function() {
-      this.$store.dispatch("logout").then(() => {
-        this.$router.push("/login");
-      });
-    }
+  name: "App",
+  components: {
+    navbar
   }
 };
 </script>

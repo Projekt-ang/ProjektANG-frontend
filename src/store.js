@@ -68,4 +68,4 @@ export default new Vuex.Store({
         isLoggedIn: state => !!state.token,
         authStatus: state => state.authStatus
     }
-});
+  });
