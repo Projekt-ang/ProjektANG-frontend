@@ -1,9 +1,10 @@
 /*jshint node: true, esversion: 6 */
-import Vue from 'vue';
-import Router from 'vue-router';
-import Home from './views/Home.vue';
-import About from './views/About.vue';
-import TextTest from './views/TextTest.vue';
+import Vue from "vue";
+import Router from "vue-router";
+import store from "./store";
+import Home from "./views/Home.vue";
+import About from "./views/About.vue";
+import TextTest from "./views/TextTest.vue";
 import CreateReadingVideoTest from "./views/CreateReadingVideoTest.vue";
 import EditReadingVideoTest from "./views/EditReadingVideoTest.vue";
 import CreateBlankTest from "./views/CreateBlankTest.vue";
@@ -15,68 +16,87 @@ import Verified from "./views/Verified.vue";
 
 Vue.use(Router);
 
-export default new Router({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes: [{
-            path: '/',
-            name: 'home',
-            component: Home
-        },
-        {
-            path: '/about',
-            name: 'about',
-            component: About
-        },
-        {
-            path: '/about/:id',
-            name: 'test',
-            component: TextTest,
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: Login,
-        },
-        {
-            path: "/CreateReadingVideoTest",
-            name: " CreateReadingVideoTest",
-            component: CreateReadingVideoTest
-        },
-        {
-            path: "/about/EditReadingVideoTest/:id",
-            name: "EditReadingVideoTest",
-            component: EditReadingVideoTest
-        },
-        {
-            path: "/CreateBlankTest",
-            name: "CreateBlankTest",
-            component: CreateBlankTest
-        },
-        {
-            path: "/CreateGlossaryDefinition",
-            name: "CreateGlossaryDefinition",
-            component: CreateGlossaryDefinition
-        },
-        {
-            path: "/ReadGlossary",
-            name: "ReadGlossary",
-            component: ReadGlossary
-        },
-        {
-            path: "/EditGlossary/:id",
-            name: "EditGlossary",
-            component: EditGlossary
-        },
-        {
-            path: "/add-email",
-            name: "EmailVerification",
-            component: EmailVerification
-        },
-        {
-            path: "/verify/:token",
-            name: "Verified",
-            component: Verified
-        }
-    ]
+let router = new Router({
+  mode: "history",
+  routes: [
+    {
+      path: "/",
+      name: "home",
+      component: Home
+    },
+    {
+      path: "/about",
+      name: "about",
+      component: About
+    },
+    {
+      path: "/about/:id",
+      name: "test",
+      component: TextTest
+    },
+    {
+      path: "/CreateReadingVideoTest",
+      name: " CreateReadingVideoTest",
+      component: CreateReadingVideoTest
+    },
+    {
+      path: "/about/EditReadingVideoTest/:id",
+      name: "EditReadingVideoTest",
+      component: EditReadingVideoTest
+    },
+    {
+      path: "/CreateBlankTest",
+      name: "CreateBlankTest",
+      component: CreateBlankTest,
+      meta: {
+        authorize: ["ROLE_UNCONFIRMED"]
+      }
+    },
+    {
+      path: "/CreateGlossaryDefinition",
+      name: "CreateGlossaryDefinition",
+      component: CreateGlossaryDefinition,
+      meta: {
+        authorize: ["ROLE_ADMIN"]
+      }
+    },
+    {
+      path: "/ReadGlossary",
+      name: "ReadGlossary",
+      component: ReadGlossary
+    },
+    {
+      path: "/EditGlossary/:id",
+      name: "EditGlossary",
+      component: EditGlossary
+    },
+    {
+      path: "/add-email",
+      name: "EmailVerification",
+      component: EmailVerification
+    },
+    {
+      path: "/verify/:token",
+      name: "Verified",
+      component: Verified
+    }
+  ]
 });
+
+router.beforeEach((to, from, next) => {
+  const { authorize } = to.meta;
+  const user = store.state.user;
+
+  if (authorize) {
+    if (!user) {
+      return next({ path: "/", query: { returnUrl: to.path } });
+    }
+
+    if (authorize.length && !authorize.some(r => user.roles.indexOf(r) >= 0)) {
+      return next({ path: "/" });
+    }
+  }
+  next();
+});
+
+export default router;

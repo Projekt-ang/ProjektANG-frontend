@@ -26,7 +26,6 @@ export default {
       let password = this.password;
       this.$store
         .dispatch("login", { username, password })
-        .then(() => this.$router.push("/"))
         .catch(err => console.log(err));
     }
   }

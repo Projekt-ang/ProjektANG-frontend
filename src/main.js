@@ -11,7 +11,7 @@ import Vue2Editor from "vue2-editor";
 import "bootstrap/dist/css/bootstrap.css";
 
 const req = axios.create({
-  baseURL: "http://18.195.242.27:8080/"
+  baseURL: "http://localhost:8080/"
 });
 Vue.prototype.$req = req;
 
