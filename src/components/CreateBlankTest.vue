@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h1>Dodawanie nowego testu tekstowego / wideo</h1>
+        <h1>Dodawanie nowego testu z lukami</h1>
         <form @submit.prevent="sendTest" id="ReadVideoTest" class="col-12">
           <div class="row">
             <div class="col-1"/>

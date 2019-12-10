@@ -10,7 +10,7 @@
         <th>Autor</th>
         <th>Rodzaj testu</th>
         <th>Grupy</th>
-        <th style="width: 15%"></th>
+        <th style="width: 15%" v-if="userRole=='LEKTOR'"></th>
       </thead>
       <tbody>
         <template v-for="(test, idx) in this.testy">
@@ -27,7 +27,7 @@
             </td>
             <td class="align-middle">Reading</td>
             <td class="align-middle">10</td>
-            <td class="align-middle">
+            <td class="align-middle" v-if="userRole=='LEKTOR'">
               <button class="btn-danger" @click.stop="deleteTest(test.id)">Usuń</button>
               <router-link :to="'/about/editReadingVideoTest/'+test.id">
                 <button class="btn-primary">Edytuj</button>
@@ -40,10 +40,7 @@
                 <div class="row justify-content-md-center">
                   <div class="col-11">
                     <h3 class="m-2">Tekst</h3>
-                    <div
-                      v-html="test.text"
-                    >
-                    </div>
+                    <div v-html="test.text"></div>
 
                     <div class="m-2">
                       <div class="row justify-content-md-center">
@@ -79,6 +76,7 @@
 
 <script>
 export default {
+  props: ["userRole"],
   data() {
     return {
       testy: undefined,
