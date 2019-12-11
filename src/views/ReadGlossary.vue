@@ -3,21 +3,29 @@
     <div class="row">
       <div class="col-12">
         <h1>Glosariusz</h1>
-        <table table class="table table-striped table-hover table-bordered w-50 mx-auto">
+        <table
+          table
+          class="table table-striped table-hover table-bordered w-50 mx-auto"
+        >
           <thead>
             <th>Słowo</th>
             <th>Definicja</th>
-            <th v-if="userRole=='LEKTOR'">Akcja</th>
+            <th v-if="role == 'LEKTOR'">Akcja</th>
           </thead>
           <tbody>
-            <tr v-for="(word,wordId) in words" :key="wordId">
-              <td class="align-middle">{{word.word}}</td>
-              <td class="align-middle">{{word.definition}}</td>
-              <td class="align-middle" v-if="userRole=='LEKTOR'">
-                <router-link :to="'/EditGlossary/'+word.id">
+            <tr v-for="(word, wordId) in words" :key="wordId">
+              <td class="align-middle">{{ word.word }}</td>
+              <td class="align-middle">{{ word.definition }}</td>
+              <td class="align-middle" v-if="role == 'LEKTOR'">
+                <router-link :to="'/EditGlossary/' + word.id">
                   <button class="btn-primary mr-2">Edytuj</button>
                 </router-link>
-                <button class="btn-danger" @click.stop="deleteWord(wordId,word)">Usuń</button>
+                <button
+                  class="btn-danger"
+                  @click.stop="deleteWord(wordId, word)"
+                >
+                  Usuń
+                </button>
               </td>
             </tr>
           </tbody>
@@ -30,7 +38,6 @@
 <script>
 export default {
   name: "ReadGlossary",
-  props: ["userRole"],
 
   data() {
     return {
@@ -59,6 +66,14 @@ export default {
     this.$req.get("/glossaries").then(response => {
       this.words = response.data._embedded.glossaries;
     });
+  },
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    },
+    role: function() {
+      return this.$store.getters.getRole;
+    }
   }
 };
 </script>
