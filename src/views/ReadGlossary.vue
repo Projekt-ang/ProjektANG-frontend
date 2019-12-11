@@ -7,13 +7,13 @@
           <thead>
             <th>Słowo</th>
             <th>Definicja</th>
-            <th v-if="userRole=='LEKTOR'">Akcja</th>
+            <th>Akcja</th>
           </thead>
           <tbody>
             <tr v-for="(word,wordId) in words" :key="wordId">
               <td class="align-middle">{{word.word}}</td>
               <td class="align-middle">{{word.definition}}</td>
-              <td class="align-middle" v-if="userRole=='LEKTOR'">
+              <td class="align-middle">
                 <router-link :to="'/EditGlossary/'+word.id">
                   <button class="btn-primary mr-2">Edytuj</button>
                 </router-link>
@@ -30,8 +30,6 @@
 <script>
 export default {
   name: "ReadGlossary",
-  props: ["userRole"],
-
   data() {
     return {
       words: []

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <home-user v-if="role === 'USER'"/>
-    <homeLektor v-else-if="role === 'LEKTOR'" :userRole="role"/>
+    <home-lektor v-else-if="role === 'LEKTOR'"/>
     <home-admin v-else-if="role === 'ADMIN'"/>
     <login v-else/>
   </div>
@@ -41,8 +41,7 @@ export default {
       return this.$store.getters.isLoggedIn;
     },
     role: function() {
-      //return this.$store.getters.getRole;
-      return "USER";
+      return this.$store.getters.getRole;
     }
   }
 };
