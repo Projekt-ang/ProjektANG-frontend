@@ -12,6 +12,8 @@ import ReadGlossary from "./views/ReadGlossary.vue";
 import EditGlossary from "./views/EditGlossary.vue";
 import EmailVerification from "./views/EmailVerification.vue";
 import Verified from "./views/Verified.vue";
+import BlankTest from "./views/BlankTest";
+import EditBlankTest from "./views/EditBlankTest";
 
 Vue.use(Router);
 
@@ -40,7 +42,7 @@ export default new Router({
       component: CreateReadingVideoTest
     },
     {
-      path: "/EditReadingVideoTest/:id",
+      path: "/about/EditReadingVideoTest/:id",
       name: "EditReadingVideoTest",
       component: EditReadingVideoTest
     },
@@ -73,6 +75,16 @@ export default new Router({
       path: "/verify/:token",
       name: "Verified",
       component: Verified
+    },
+    {
+    path: "/BlankTest/:id",
+    name: "BlankTest",
+    component: BlankTest
+    },
+    {
+      path: "/about/EditBlankTest/:id",
+      name: "EditBlankTest",
+      component: EditBlankTest
     }
   ]
 });
