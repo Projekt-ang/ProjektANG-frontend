@@ -3,29 +3,21 @@
     <div class="row">
       <div class="col-12">
         <h1>Glosariusz</h1>
-        <table
-          table
-          class="table table-striped table-hover table-bordered w-50 mx-auto"
-        >
+        <table table class="table table-striped table-hover table-bordered w-50 mx-auto">
           <thead>
             <th>Słowo</th>
             <th>Definicja</th>
-            <th v-if="role == 'LEKTOR'">Akcja</th>
+            <th>Akcja</th>
           </thead>
           <tbody>
             <tr v-for="(word, wordId) in words" :key="wordId">
               <td class="align-middle">{{ word.word }}</td>
               <td class="align-middle">{{ word.definition }}</td>
-              <td class="align-middle" v-if="role == 'LEKTOR'">
+              <td class="align-middle">
                 <router-link :to="'/EditGlossary/' + word.id">
                   <button class="btn-primary mr-2">Edytuj</button>
                 </router-link>
-                <button
-                  class="btn-danger"
-                  @click.stop="deleteWord(wordId, word)"
-                >
-                  Usuń
-                </button>
+                <button class="btn-danger" @click.stop="deleteWord(wordId, word)">Usuń</button>
               </td>
             </tr>
           </tbody>
