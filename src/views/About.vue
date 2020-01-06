@@ -60,7 +60,7 @@
             </td>
           </tr>
           <tr v-if="test.id in expanded" :key="idx">
-            <td :colspan="5">
+            <td colspan="100%">
               <div v-if="test.questions">
                 <div class="accordian-body">
                   <div class="row justify-content-md-center">
@@ -150,11 +150,16 @@ export default {
           odp[k][l] = (wyswietlanyTekst.blankSymbols[k].answers[l].answer);
         }
       }
+      
+      for (var d in odp) {
+        odp[d] = _.shuffle(odp[d]);
+      }
 
       var select = [];
       for (var m in odp) {
         select[m] = "";
         select[m] += "<select>";
+        select[m] += "<option> </option>";
         for (var n in odp[m]){
           select[m] += "<option>" + odp[m][n] + "</option>";
         }
@@ -215,6 +220,8 @@ export default {
 
     this.$req.get("/blankInsertTests").then(response => {
       this.blanks = response.data._embedded.blankInsertTests;
+
+    }).finally(() => {
       this.blanks.forEach(test => {
         if (test){
           this.testy.push(test);
@@ -227,8 +234,7 @@ export default {
       return this.$store.getters.isLoggedIn;
     },
     role: function() {
-      return "LEKTOR";
-      //return this.$store.getters.getRole;
+      return this.$store.getters.getRole;
     }
   }
 };

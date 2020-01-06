@@ -178,8 +178,6 @@ export default {
     }
   },
   mounted() {
-    //do poprawy aby uzupelnic luki poprawnymi odpowiedziami w tekscie
-
     this.$req.get("/tags").then(response => {
       this.allTags = response.data._embedded.tags;
     });
@@ -190,6 +188,25 @@ export default {
         this.text = response.data.text;
         this.author = response.data.author;
         this.blankSymbols = response.data.blankSymbols;
+        
+        //zamiana {0} {1} itd na poprawne odpowiedzi w tekscie
+        let regex = /\{.*?\}/g;
+        let match = this.text.match(regex);
+        var odp = [];
+        for (var i in this.blankSymbols) {
+          odp[i] = '';
+          for (var j in this.blankSymbols[i].answers){
+            if (this.blankSymbols[i].answers[j].correct === true){
+              odp[i] += '{';
+              odp[i] += this.blankSymbols[i].answers[j].answer
+              odp[i] += '}';
+            }
+          }
+        }
+        for (var k in match) {
+          this.text = this.text.replace(match[k], odp[k])
+        }
+
       });
   },
   computed: {

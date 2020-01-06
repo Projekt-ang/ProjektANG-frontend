@@ -45,11 +45,16 @@ export default {
           odp[k][l] = (this.test.blankSymbols[k].answers[l].answer)
         }
       }
+      //odpowiedzi w losowej kolejnosci
+      for (var d in odp) {
+        odp[d] = _.shuffle(odp[d]);
+      }
       var select = [];
 
       for (var m in odp) {
         select[m] = "";
         select[m] += "<select>";
+        select[m] += "<option> </option>"
         for (var n in odp[m]){
           select[m] += "<option>" + odp[m][n] + "</option>";
         }
