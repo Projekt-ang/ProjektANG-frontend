@@ -7,81 +7,82 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-            <div class="container">
-              <div class="row">
-                <div class="col-12">
-                  <form @submit.prevent="zapisz()" id="BlankTest" class="col-12">
-                    <div class="row">
-                      <div class="col-1"/>
-                      <input
-                        type="text"
-                        class="col-5 form-control m-2"
-                        v-model="konTmp.name"
-                        placeholder="Tytuł"
-                        required
-                      >
-                      <input
-                        type="text"
-                        class="col-5 form-control m-2"
-                        v-model="konTmp.author"
-                        placeholder="Autor"
-                        required
-                      >
-                      <div class="col-1"/>
-                    </div>
-            <!--
-                    <div class="row">
-                      <input
-                        type="text"
-                        v-model="inputTag"
-                        class="form-control mb-2"
-                        placeholder="wprowadź nazwę tagu"
-                      >
-                    </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <h1>Dodawanie nowego testu z lukami</h1>
+                <form @submit.prevent="zapisz()" id="ReadVideoTest" class="col-12">
+                  <div class="row">
+                    <div class="col-1"/>
+                    <input
+                      type="text"
+                      class="col-5 form-control m-2"
+                      v-model="name"
+                      placeholder="Tytuł"
+                      required
+                    >
+                    <input
+                      type="text"
+                      class="col-5 form-control m-2"
+                      v-model="author"
+                      placeholder="Autor"
+                      required
+                    >
+                    <div class="col-1"/>
+                  </div>
 
-                    <div id="tags" class="row">
-                      <span
-                        v-for="(tag,tagId) in filteredTags"
-                        :key="tagId"
-                        v-bind:class="{ 'colored-tag': isChecked(tag.text)}"
-                        @click="toggleTag(tag.text)"
-                        class="tag-class border mr-2 mb-2"
-                      >{{tag.text}}</span>
+                  <div class="row">
+                    <input
+                      type="text"
+                      v-model="inputTag"
+                      class="form-control mb-2"
+                      placeholder="wprowadź nazwę tagu"
+                    >
+                  </div>
 
+                  <div id="tags" class="row">
+                    <span
+                      v-for="(tag,tagId) in filteredTags"
+                      :key="tagId"
+                      v-bind:class="{ 'colored-tag': isChecked(tag.text)}"
+                      @click="toggleTag(tag.text)"
+                      class="tag-class border mr-2 mb-2"
+                    >{{tag.text}}</span>
+
+                    <button
+                      type="button"
+                      @click="newTag"
+                      class="btn btn-primary mb-2 form-control"
+                    >Dodaj tag</button>
+                  </div>
+
+                  <vue-editor v-model="text" required/>
+
+                  <div class="row">
+                    <div class="col-6" v-for="(blank,blankId) in tempBlanks" :key="blankId">
+                      <div>Luka {{ blank }}</div>
+                      <div class="row">
+                        <div
+                          class="col-12 mt-2"
+                          v-for="(answer,answerId) in blankSymbols[blankId].answers"
+                          :key="answerId"
+                        >
+                          <input type="text" class="col-9 mr-2" v-if="answerId>0" v-model="answer.answer">
+                          <button
+                            type="button"
+                            class="col-2 btn-danger"
+                            @click="removeAnswer(blankId,answerId)"
+                            v-if="answerId>0"
+                          >X</button>
+                        </div>
+                      </div>
                       <button
                         type="button"
-                        @click="newTag"
-                        class="btn btn-primary mb-2 form-control"
-                      >Dodaj tag</button>
+                        class="btn-primary mt-3"
+                        @click="addAnswer(blankId)"
+                      >Dodaj odpowiedź</button>
                     </div>
-              -->
-                    <vue-editor v-model=" konTmp.text" required/>
-    <!-- NIE RUSZANE   V                           -->
-                    <div class="row">
-                      <div class="col-6" v-for="(blank,blankId) in tempBlanks" :key="blankId">
-                        <div>Luka {{ blank }}</div>
-                        <div class="row">
-                          <div
-                            class="col-12 mt-2"
-                            v-for="(answer,answerId) in blankSymbols[blankId].answers"
-                            :key="answerId"
-                          >
-                            <input type="text" class="col-9 mr-2" v-if="answerId>0" v-model="answer.answer">
-                            <button
-                              type="button"
-                              class="col-2 btn-danger"
-                              @click="removeAnswer(blankId,answerId)"
-                              v-if="answerId>0"
-                            >X</button>
-                          </div>
-                        </div>
-                        <button
-                          type="button"
-                          class="btn-primary mt-3"
-                          @click="addAnswer(blankId)"
-                        >Dodaj odpowiedź</button>
-                      </div>
-                    </div>
+                  </div>
                   <button type="submit" class="col-12 form-control btn btn-success mt-1 mb-3">Zatwierdź test</button>
                 </form>
               </div>
@@ -101,23 +102,18 @@ export default {
   props: {
     id: {
       required: false
-    },
-    tmp: {
-      required: false
     }
   },
   data() {
     return {
-      t: {
-        name: "",
-        author: "",
-        text: "",
-        allTags: [],
-        tags: [],
-        blankSymbols: [],
-        inputTag: "",
-        tagLimit: 25
-      }
+      name: "",
+      author: "",
+      text: "",
+      allTags: [],
+      tags: [],
+      blankSymbols: [],
+      inputTag: "",
+      tagLimit: 25
     };
   },
   methods: {
@@ -127,7 +123,7 @@ export default {
         correct: false
       });
     },
-    /*
+    
     beginsWith(tagName) {
       return tagName.startsWith(this.inputTag);
     },
@@ -151,7 +147,7 @@ export default {
       if (this.tags.find(element => element.text === tagName)) return true;
       return false;
     },
-    */
+    
     prepareJson() {
       let blankTest = {
         name: this.name,
@@ -199,7 +195,7 @@ export default {
     removeAnswer(blankId, answerId) {
       this.blankSymbols[blankId].answers.splice(answerId, 1);
     },
-    /*
+    
     toggleTag(tagName) {
       for (var i in this.tags) {
         if (this.tags[i].text == tagName) {
@@ -211,7 +207,7 @@ export default {
         text: tagName
       });
     },
-    */
+    
     zapisz: function() {
       $("#blankTest").modal("toggle");
       if (this.id){
@@ -223,40 +219,8 @@ export default {
     }
   },
   mounted() {
-    this.$req.get("/tags").then(response => {
-      this.allTags = response.data._embedded.tags;
-    });
-    if (this.id) {
-      this.$req
-        .get("/blankInsertTests/" + this.id)
-        .then(response => {
-          this.name = response.data.name;
-          this.text = response.data.text;
-          this.author = response.data.author;
-          this.blankSymbols = response.data.blankSymbols;
-          
-          //zamiana {0} {1} itd na poprawne odpowiedzi w tekscie
-          let regex = /\{.*?\}/g;
-          let match = this.text.match(regex);
-          var odp = [];
-          for (var i in this.blankSymbols) {
-            odp[i] = '';
-            for (var j in this.blankSymbols[i].answers){
-              if (this.blankSymbols[i].answers[j].correct === true){
-                odp[i] += '{';
-                odp[i] += this.blankSymbols[i].answers[j].answer
-                odp[i] += '}';
-              }
-            }
-          }
-          for (var k in match) {
-            this.text = this.text.replace(match[k], odp[k])
-          }
-      })
-    }
   },
   computed: {
-    /*
     filteredTags: function() {
       let tags = this.allTags.filter(element => {
         return this.beginsWith(element.text);
@@ -266,18 +230,17 @@ export default {
 
       return tags;
     },
-    */
 
     tempBlanks: function() {
       let regex = /\{.*?\}/g;
-      let match = this.t.text.match(regex);
-      let copy = this.t.blankSymbols;
-      this.t.blankSymbols = [];
+      let match = this.text.match(regex);
+      let copy = this.blankSymbols;
+      this.blankSymbols = [];
       for (var i in match) {
         match[i] = match[i].replace("{", "");
         match[i] = match[i].replace("}", "");
 
-        this.t.blankSymbols.push({
+        this.blankSymbols.push({
           answers: [
             {
               answer: match[i],
@@ -288,16 +251,10 @@ export default {
       }
 
       for (var i in copy) {
-        this.t.blankSymbols[i].answers = copy[i].answers;
+        this.blankSymbols[i].answers = copy[i].answers;
       }
       return match;
     },
-     konTmp: function() {
-      if (this.id) {
-        return this.tmp;
-      }
-      else return this.t;
-    }
   }
 };
 </script>

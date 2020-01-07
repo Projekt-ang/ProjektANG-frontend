@@ -23,6 +23,7 @@
         </tbody>
       </table>
     <BlankModal :id="idTmp"/>
+    <confirmDeleteModal :id="idTmp"/>
     </div>
 </template>
 
@@ -31,10 +32,12 @@ import JQuery from 'jquery'
 let $ = JQuery;
 
 import BlankModal from "@/components/modals/BlankTest";
+import confirmDeleteModal from "@/components/modals/ConfirmDelete";
 export default {
   name: "BlankTests",
   components: {
-    BlankModal
+    BlankModal,
+    confirmDeleteModal
   },
   data() {
     return {
@@ -53,6 +56,10 @@ export default {
       this.idTmp = id;
       this.testTmp = blankTest;
       $("#blankTest").modal("toggle");
+    },
+    modalDelete: function(id) {
+      this.idTmp = id;
+      $("#confirmDelete").modal("toggle");
     },
   },
   mounted() {
