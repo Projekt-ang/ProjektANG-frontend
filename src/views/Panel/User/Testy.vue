@@ -1,25 +1,19 @@
 <template>
   <div class="vertical-center">
     <div class="container">
+      <h1 class="m-4">Wybierz typ testu</h1>
       <div class="row">
         <div class="col-sm">
           <router-link :to="'/'">
-            <button class="btn btn-sq-lg btn-primary">
-              <h2>Ustawienia</h2>
-            </button>
-          </router-link>
-        </div>
-        <div class="col-sm">
-          <router-link :to="'/Testy'">
             <button class="btn btn-sq-lg btn-success">
-              <h2>Testy</h2>
+              <h2>Reading <br> Video</h2>
             </button>
           </router-link>
         </div>
         <div class="col-sm">
           <router-link :to="'/'">
-            <button class="btn btn-sq-lg btn-danger">
-              <h2>Wyniki</h2>
+            <button class="btn btn-sq-lg btn-success">
+              <h2>Blank Tests</h2>
             </button>
           </router-link>
         </div>
