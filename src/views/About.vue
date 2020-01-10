@@ -36,7 +36,7 @@
               <button class="btn-danger" @click.stop="deleteTest(test.id)">
                 Usuń
               </button>
-              <router-link :to="'/about/EditReadingVideoTest/' + test.id">
+              <router-link :to="'/EditReadingVideoTest/' + test.id">
                 <button class="btn-primary">Edytuj</button>
               </router-link>
             </td>

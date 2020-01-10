@@ -21,6 +21,7 @@ import GlossaryManagement from "./views/Crud/Glossary.vue";
 import BlankCRUD from "./views/Crud/Tests/Blank.vue";
 import RVCrud from "./views/Crud/Tests/ReadingVideo.vue";
 import Testy from "./views/Panel/User/Testy.vue";
+import EditUser from "./views/EditUser.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -121,11 +122,16 @@ export default new Router({
 			path: "/Crud/Tests/ReadingVideo",
 			name: "ReadingVideoCrud",
 			component: RVCrud
-    },
-    {
-      path: "/Testy",
-      name: "Testy",
-      component: Testy
-    }
+		},
+		{
+			path: "/Testy",
+			name: "Testy",
+			component: Testy
+		},
+		{
+			path: "/EditUser/:id",
+			name: "EditUser",
+			component: EditUser
+		}
 	]
 });

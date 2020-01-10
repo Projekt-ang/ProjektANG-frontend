@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <home-user v-if="role === 'USER'" />
-    <homeLektor v-else-if="role === 'LEKTOR'" />
-    <home-admin v-else-if="role === 'ADMIN'" />
-    <login v-else />
+    <home-user v-if="role === 'USER'"/>
+    <homeLektor v-else-if="role === 'LEKTOR'"/>
+    <home-admin v-else-if="role === 'ADMIN'"/>
+    <login v-else/>
   </div>
 </template>
 
@@ -42,7 +42,7 @@ export default {
     },
     role: function() {
       //return this.$store.getters.getRole;"
-      return "LEKTOR";
+      return "USER";
     }
   }
 };
