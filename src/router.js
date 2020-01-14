@@ -22,6 +22,7 @@ import BlankCRUD from "./views/Crud/Tests/Blank.vue";
 import RVCrud from "./views/Crud/Tests/ReadingVideo.vue";
 import Testy from "./views/Panel/User/Testy.vue";
 import EditUser from "./views/EditUser.vue";
+import Settings from "./views/Settings.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -132,6 +133,11 @@ export default new Router({
 			path: "/EditUser/:id",
 			name: "EditUser",
 			component: EditUser
+		},
+		{
+			path: "/Settings",
+			name: "Settings",
+			component: Settings
 		}
 	]
 });

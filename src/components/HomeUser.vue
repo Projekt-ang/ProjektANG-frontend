@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm">
-          <router-link :to="'/'">
+          <router-link :to="'/Settings'">
             <button class="btn btn-sq-lg btn-primary">
               <h2>Ustawienia</h2>
             </button>
@@ -43,7 +43,7 @@ export default {
   height: 250px !important;
 }
 .vertical-center {
-  min-height: 80%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 80%; /* Fallback for browsers do NOT support vh unit */
   min-height: 70vh; /* These two lines are counted as one      */
 
   display: flex;
