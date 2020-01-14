@@ -10,21 +10,21 @@
           <div class="container">
             <div class="row">
               <div class="col-12">
-                <h1>Dodawanie nowego testu z lukami</h1>
-                <form @submit.prevent="zapisz()" id="ReadVideoTest" class="col-12">
+                <h1>Test z lukami</h1>
+                <form @submit.prevent="zapisz()" id="BlankTest" class="col-12">
                   <div class="row">
                     <div class="col-1"/>
                     <input
                       type="text"
                       class="col-5 form-control m-2"
-                      v-model="name"
+                      v-model="blankTmp.name"
                       placeholder="Tytuł"
                       required
                     >
                     <input
                       type="text"
                       class="col-5 form-control m-2"
-                      v-model="author"
+                      v-model="blankTmp.author"
                       placeholder="Autor"
                       required
                     >
@@ -34,7 +34,7 @@
                   <div class="row">
                     <input
                       type="text"
-                      v-model="inputTag"
+                      v-model="blankTmp.inputTag"
                       class="form-control mb-2"
                       placeholder="wprowadź nazwę tagu"
                     >
@@ -42,7 +42,7 @@
 
                   <div id="tags" class="row">
                     <span
-                      v-for="(tag,tagId) in filteredTags"
+                      v-for="(tag,tagId) in blankTmp.filteredTags"
                       :key="tagId"
                       v-bind:class="{ 'colored-tag': isChecked(tag.text)}"
                       @click="toggleTag(tag.text)"
@@ -56,7 +56,7 @@
                     >Dodaj tag</button>
                   </div>
 
-                  <vue-editor v-model="text" required/>
+                  <vue-editor v-model="blankTmp.text" required/>
 
                   <div class="row">
                     <div class="col-6" v-for="(blank,blankId) in tempBlanks" :key="blankId">
@@ -64,7 +64,7 @@
                       <div class="row">
                         <div
                           class="col-12 mt-2"
-                          v-for="(answer,answerId) in blankSymbols[blankId].answers"
+                          v-for="(answer,answerId) in blankTmp.blankSymbols[blankId].answers"
                           :key="answerId"
                         >
                           <input type="text" class="col-9 mr-2" v-if="answerId>0" v-model="answer.answer">
@@ -97,6 +97,7 @@
 <script>
 import JQuery from 'jquery'
 let $ = JQuery;
+
 export default {
   name: "InsertBlanks",
   props: {
@@ -106,59 +107,61 @@ export default {
   },
   data() {
     return {
-      name: "",
-      author: "",
-      text: "",
-      allTags: [],
-      tags: [],
-      blankSymbols: [],
-      inputTag: "",
-      tagLimit: 25
+      t: {
+        name: "",
+        author: "",
+        text: "",
+        tags: [],
+        blankSymbols: [],
+        inputTag: "",
+        tagLimit: 25
+      },
+      allTags: []
     };
   },
   methods: {
     addAnswer(blankId) {
-      this.blankSymbols[blankId].answers.push({
+      this.blankTmp.blankSymbols[blankId].answers.push({
         answer: "",
         correct: false
       });
     },
     
     beginsWith(tagName) {
-      return tagName.startsWith(this.inputTag);
+      return tagName.startsWith(this.blankTmp.inputTag);
     },
 
     newTag() {
-      if (this.inputTag == "") return false;
+      if (this.blankTmp.inputTag == "") return false;
 
-      this.tags.push({
-        text: this.inputTag
+      this.blankTmp.tags.push({
+        text: this.blankTmp.inputTag
       });
-      this.allTags.push({
-        text: this.inputTag
+      this.allTagsTmp.push({
+        text: this.blankTmp.inputTag
       });
 
-      this.allTags.sort(function(a, b) {
+      this.allTagsTmp.sort(function(a, b) {
         return a.text > b.text;
       });
     },
 
     isChecked(tagName) {
-      if (this.tags.find(element => element.text === tagName)) return true;
+      if (this.blankTmp.tags.find(element => element.text === tagName)) return true;
       return false;
     },
     
     prepareJson() {
       let blankTest = {
-        name: this.name,
-        author: this.author,
-        text: this.text,
-        blankSymbols: this.blankSymbols,
-        tags: this.tags
+        name: this.blankTmp.name,
+        author: this.blankTmp.author,
+        text: this.blankTmp.text,
+        blankSymbols: this.blankTmp.blankSymbols,
+        tags: this.blankTmp.tags
       };
 
       let regex = /\{.*?\}/g;
-      let match = this.text.match(regex);
+      let match = this.blankTmp.text.match(regex);
 
       for (var i in match) {
         blankTest.text = blankTest.text.replace(match[i], "{" + i + "}");
@@ -183,7 +186,7 @@ export default {
       let fullTest = this.prepareJson();
 
       this.$req
-        .put("/api/BlankInsertTest" + this.id, fullTest)
+        .put("/api/BlankInsertTest/" + this.id, fullTest)
         .then(() => {
           alert("poprawna edycja testu");
         })
@@ -193,17 +196,17 @@ export default {
     },
 
     removeAnswer(blankId, answerId) {
-      this.blankSymbols[blankId].answers.splice(answerId, 1);
+      this.blankTmp.blankSymbols[blankId].answers.splice(answerId, 1);
     },
     
     toggleTag(tagName) {
-      for (var i in this.tags) {
-        if (this.tags[i].text == tagName) {
-          this.tags.splice(i, 1);
+      for (var i in this.blankTmp.tags) {
+        if (this.blankTmp.tags[i].text == tagName) {
+          this.blankTmp.tags.splice(i, 1);
           return true;
         }
       }
-      this.tags.push({
+      this.blankTmp.tags.push({
         text: tagName
       });
     },
@@ -216,31 +219,32 @@ export default {
       else {
         this.SendTest();
       }
-    }
+    },
   },
   mounted() {
+    if (this.id) this.blankTmp = this.$store.getters.getBlankById(this.id);
   },
   computed: {
     filteredTags: function() {
-      let tags = this.allTags.filter(element => {
+      let tags = this.allTagsTmp.filter(element => {
         return this.beginsWith(element.text);
       });
 
-      if (tags.length > this.tagLimit) tags.splice(this.tagLimit);
+      if (tags.length > this.blankTmp.tagLimit) tags.splice(this.blankTmp.tagLimit);
 
       return tags;
     },
 
     tempBlanks: function() {
       let regex = /\{.*?\}/g;
-      let match = this.text.match(regex);
-      let copy = this.blankSymbols;
-      this.blankSymbols = [];
+      let match = this.blankTmp.text.match(regex);
+      let copy = this.blankTmp.blankSymbols;
+      this.blankTmp.blankSymbols = [];
       for (var i in match) {
         match[i] = match[i].replace("{", "");
         match[i] = match[i].replace("}", "");
 
-        this.blankSymbols.push({
+        this.blankTmp.blankSymbols.push({
           answers: [
             {
               answer: match[i],
@@ -251,14 +255,23 @@ export default {
       }
 
       for (var i in copy) {
-        this.blankSymbols[i].answers = copy[i].answers;
+        this.blankTmp.blankSymbols[i].answers = copy[i].answers;
       }
       return match;
+    },
+
+    blankTmp: {
+      get: function(){
+        if (this.id) {
+          return this.$store.getters.getBlankById(this.id);
+        } else return this.t;
+      },
+      set: function(){
+      },
     },
   }
 };
 </script>
-
 
 <style>
 .tag-class:hover {

@@ -11,7 +11,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(test, idx) in this.testy" :key="idx">
+          <tr v-for="(test, idx) in this.$store.state.blankTests" :key="idx">
             <td class="align-middle">{{test.name}}</td>
             <td class="align-middle">{{test.author}}</td>
             <td class="align-middle">1 2 3</td>
@@ -41,20 +41,16 @@ export default {
   },
   data() {
     return {
-      testy: undefined,
       idTmp: undefined,
-      testTmp: undefined
     };
   },
   methods: {
     modalAdd: function() {
         this.idTmp = undefined;
-        //this.testTmp = undefined;
         $("#blankTest").modal("toggle");
     },
-    modalEdit: function(id, blankTest) {
+    modalEdit: function(id) {
       this.idTmp = id;
-      this.testTmp = blankTest;
       $("#blankTest").modal("toggle");
     },
     modalDelete: function(id) {
@@ -63,9 +59,8 @@ export default {
     },
   },
   mounted() {
-    this.$req.get("/blankInsertTests").then(response => {
-      this.testy = response.data._embedded.blankInsertTests;
-    });
+  },
+  computed: {
   }
 };
 
