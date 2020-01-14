@@ -22,16 +22,15 @@ export default {
   name: "Results",
   data() {
     return {
-      results: []
+      results: [],
+      user: {}
     };
   },
-  methods: {
-    filterTests() {}
-  },
+  methods: {},
   mounted() {
-    this.$req.get("/api/get-user-results/").then(response => {
+    this.$req.get("/api/get-user-results/" + user.id).then(response => {
       this.results = response.data._embedded;
-      this.filterTests();
+      this.user = this.$store.getters.user;
     });
   }
 };
