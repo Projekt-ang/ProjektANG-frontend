@@ -41,7 +41,7 @@ export default {
       return this.$store.getters.isLoggedIn;
     },
     role: function() {
-      //return this.$store.getters.getRole;"
+      // return this.$store.getters.getRole;
       return "USER";
     }
   }

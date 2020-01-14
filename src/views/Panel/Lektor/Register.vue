@@ -23,9 +23,13 @@ export default {
   methods: {
     sendFile() {
       this.$req
-        .post("")
-        .then(function() {})
-        .catch(function() {});
+        .post("/api/massRegister")
+        .then(function() {
+          alert("Listę użytkowników wysłano poprawnie.");
+        })
+        .catch(function() {
+          alert("Nastąpił błąd podczas wysyłania listy użytkowników.");
+        });
     }
   }
 };

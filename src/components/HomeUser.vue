@@ -17,7 +17,7 @@
           </router-link>
         </div>
         <div class="col-sm">
-          <router-link :to="'/'">
+          <router-link :to="'/Results'">
             <button class="btn btn-sq-lg btn-danger">
               <h2>Wyniki</h2>
             </button>

@@ -23,6 +23,7 @@ import RVCrud from "./views/Crud/Tests/ReadingVideo.vue";
 import Testy from "./views/Panel/User/Testy.vue";
 import EditUser from "./views/EditUser.vue";
 import Settings from "./views/Settings.vue";
+import Results from "./views/Results.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -138,6 +139,11 @@ export default new Router({
 			path: "/Settings",
 			name: "Settings",
 			component: Settings
+		},
+		{
+			path: "/Results",
+			name: "Results",
+			component: Results
 		}
 	]
 });
