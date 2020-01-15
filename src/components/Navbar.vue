@@ -32,7 +32,7 @@
             <router-link to="/settings" class="nav-link">Ustawienia</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn">
-             <a href="#" v-on:click="logout" class="nav-link">Wyloguj się</a>
+            <a href="#" v-on:click="logout" class="nav-link">Wyloguj się</a>
           </li>
         </ul>
       </div>
@@ -42,7 +42,7 @@
 
 <script>
 export default {
-  name: 'navbar',
+  name: "navbar",
   computed: {
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
@@ -54,7 +54,7 @@ export default {
   methods: {
     logout: function() {
       this.$store.dispatch("logout").then(() => {
-        this.$router.push("/login");
+        this.$router.push("/");
       });
     }
   }

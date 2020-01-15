@@ -1,9 +1,12 @@
 <template>
   <div class="home">
-    <home-user v-if="role === 'USER'"/>
-    <homeLektor v-else-if="role === 'LEKTOR'"/>
-    <home-admin v-else-if="role === 'ADMIN'"/>
-    <login v-else/>
+    <div v-if="this.isLoggedIn">
+      <home-user v-if="this.user.roles.indexOf('ROLE_USER') >= 0"/>
+      <homeLektor v-else-if="this.user.roles.indexOf('ROLE_LEKTOR') >= 0"/>
+      <home-admin v-else-if="this.user.roles.indexOf('ROLE_ADMIN') >= 0"/>
+      <home-unconfirmed v-else-if="this.user.roles.indexOf('ROLE_UNCONFIRMED') >= 0"/>
+    </div>
+    <login v-else />
   </div>
 </template>
 
@@ -15,6 +18,7 @@ import homeUser from "@/components/HomeUser.vue";
 import homeLektor from "@/components/HomeLektor.vue";
 import homeAdmin from "@/components/HomeAdmin.vue";
 import login from "@/components/Login.vue";
+import homeUnconfirmed from "@/views/EmailVerification.vue";
 
 export default {
   name: "home",
@@ -22,6 +26,7 @@ export default {
     homeUser,
     homeLektor,
     homeAdmin,
+    homeUnconfirmed,
     login
   },
   data() {
@@ -29,20 +34,13 @@ export default {
       content: undefined
     };
   },
-  methods: {
-    testApi: function() {
-      axios.get("http://localhost:8080/test").then(response => {
-        this.content = response.data;
-      });
-    }
-  },
+  methods: {},
   computed: {
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
     },
-    role: function() {
-      return this.$store.getters.getRole;
-      // return "USER";
+    user: function() {
+      return this.$store.getters.getUser;
     }
   }
 };

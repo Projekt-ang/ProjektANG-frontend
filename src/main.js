@@ -9,7 +9,7 @@ import VueLodash from "vue-lodash";
 import VueModal from "vue-js-modal";
 import Vue2Editor from "vue2-editor";
 import "bootstrap/dist/css/bootstrap.css";
-import 'bootstrap/dist/js/bootstrap.js';
+import "bootstrap/dist/js/bootstrap.js";
 
 const req = axios.create({
   baseURL: "http://localhost:8080/"

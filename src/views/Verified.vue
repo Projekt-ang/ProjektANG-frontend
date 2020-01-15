@@ -19,15 +19,15 @@ export default {
     };
   },
   mounted() {
-      this.$req
-        .post("/api/confirm-token", { email: this.email })
-        .then((response) => {
-          alert("wyslano token do sprawdzenia");
-          this.response = response;
-        })
-        .catch(() => {
-          alert("Wystąpił błąd");
-        });
+    this.$req
+      .post("/api/confirm-token", { token: this.$route.params.token })
+      .then(response => {
+        alert("wyslano token do sprawdzenia");
+        this.response = response;
+      })
+      .catch(() => {
+        alert("Wystąpił błąd");
+      });
   }
 };
 </script>
