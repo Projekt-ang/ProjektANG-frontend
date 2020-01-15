@@ -15,7 +15,7 @@
         <th>Autor</th>
         <th>Rodzaj testu</th>
         <th>Grupy</th>
-        <th style="width: 15%" v-if="role == 'LEKTOR'"></th>
+        <th style="width: 15%"></th>
       </thead>
       <tbody>
         <template v-for="(test, idx) in this.testy">
@@ -32,11 +32,11 @@
             </td>
             <td class="align-middle">Reading</td>
             <td class="align-middle">10</td>
-            <td class="align-middle" v-if="role == 'LEKTOR'">
+            <td class="align-middle">
               <button class="btn-danger" @click.stop="deleteTest(test.id)">
                 Usuń
               </button>
-              <router-link :to="'/about/editReadingVideoTest/' + test.id">
+              <router-link :to="'/EditReadingVideoTest/' + test.id">
                 <button class="btn-primary">Edytuj</button>
               </router-link>
             </td>

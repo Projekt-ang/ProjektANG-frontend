@@ -1,8 +1,8 @@
 /*jshint node: true, esversion: 6 */
-import Vue from 'vue';
-import Vuex from 'vuex';
-import axios from 'axios';
-import jwt from 'jsonwebtoken';
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
+import jwt from "jsonwebtoken";
 
 Vue.use(Vuex);
 
@@ -50,6 +50,7 @@ export default new Vuex.Store({
                         let userData = {};
                         userData.username = decoded.sub;
                         userData.roles = roles;
+                        userData.id = decoded.id;
                         console.log(user);
                         localStorage.setItem('token', token);
                         axios.defaults.headers.common.Authorization = "Bearer " + token;
@@ -110,6 +111,7 @@ export default new Vuex.Store({
             tmp.text = tmp.text.replace(match[k], '{' + odp[k] + '}')
           }
           return tmp;
-        }
+        },
+         user: state => state.user
     }
   });

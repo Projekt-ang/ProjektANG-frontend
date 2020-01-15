@@ -21,6 +21,13 @@ import GlossaryManagement from "./views/Crud/Glossary.vue";
 import BlankCRUD from "./views/Crud/Tests/Blank.vue";
 import RVCrud from "./views/Crud/Tests/ReadingVideo.vue";
 import Testy from "./views/Panel/User/Testy.vue";
+import EditUser from "./views/EditUser.vue";
+import Settings from "./views/Settings.vue";
+import Results from "./views/Results.vue";
+import EditPassword from "./views/Settings/EditPassword.vue";
+import EditMail from "./views/Settings/EditMail.vue";
+import PasswordReset from "./views/Settings/PasswordReset.vue";
+import ForgottenPassword from "./views/ForgottenPassword.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -121,11 +128,46 @@ export default new Router({
 			path: "/Crud/Tests/ReadingVideo",
 			name: "ReadingVideoCrud",
 			component: RVCrud
-    },
-    {
-      path: "/Testy",
-      name: "Testy",
-      component: Testy
-    }
+		},
+		{
+			path: "/Testy",
+			name: "Testy",
+			component: Testy
+		},
+		{
+			path: "/EditUser/:id",
+			name: "EditUser",
+			component: EditUser
+		},
+		{
+			path: "/Settings",
+			name: "Settings",
+			component: Settings
+		},
+		{
+			path: "/Results",
+			name: "Results",
+			component: Results
+		},
+		{
+			path: "/EditPassword",
+			name: "EditPassword",
+			component: EditPassword
+		},
+		{
+			path: "/EditMail",
+			name: "EditMail",
+			component: EditMail
+		},
+		{
+			path: "/password-reset/:token",
+			name: "PasswordReset",
+			component: PasswordReset
+		},
+		{
+			path: "/ForgottenPassword",
+			name: "ForgottenPassword",
+			component: ForgottenPassword
+		}
 	]
 });
