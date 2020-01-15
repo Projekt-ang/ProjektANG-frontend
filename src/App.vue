@@ -12,6 +12,10 @@ export default {
   name: "App",
   components: {
     navbar
+  },
+  mounted(){
+    this.$store.dispatch("loadBlankTests");
+    this.$store.dispatch("loadTags");
   }
 };
 </script>
