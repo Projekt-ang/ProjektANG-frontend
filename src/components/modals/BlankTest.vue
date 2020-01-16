@@ -39,16 +39,14 @@
                       placeholder="wprowadź nazwę tagu"
                     >
                   </div>
-
                   <div id="tags" class="row">
                     <span
-                      v-for="(tag,tagId) in blankTmp.filteredTags"
+                      v-for="(tag,tagId) in allTagsTmp"
                       :key="tagId"
                       v-bind:class="{ 'colored-tag': isChecked(tag.text)}"
                       @click="toggleTag(tag.text)"
                       class="tag-class border mr-2 mb-2"
                     >{{tag.text}}</span>
-
                     <button
                       type="button"
                       @click="newTag"
@@ -57,7 +55,6 @@
                   </div>
 
                   <vue-editor v-model="blankTmp.text" required/>
-
                   <div class="row">
                     <div class="col-6" v-for="(blank,blankId) in tempBlanks" :key="blankId">
                       <div>Luka {{ blank }}</div>
@@ -67,7 +64,12 @@
                           v-for="(answer,answerId) in blankTmp.blankSymbols[blankId].answers"
                           :key="answerId"
                         >
-                          <input type="text" class="col-9 mr-2" v-if="answerId>0" v-model="answer.answer">
+                          <input
+                            type="text"
+                            class="col-9 mr-2"
+                            v-if="answerId>0"
+                            v-model="answer.answer"
+                          >
                           <button
                             type="button"
                             class="col-2 btn-danger"
@@ -83,7 +85,10 @@
                       >Dodaj odpowiedź</button>
                     </div>
                   </div>
-                  <button type="submit" class="col-12 form-control btn btn-success mt-1 mb-3">Zatwierdź test</button>
+                  <button
+                    type="submit"
+                    class="col-12 form-control btn btn-success mt-1 mb-3"
+                  >Zatwierdź test</button>
                 </form>
               </div>
             </div>
@@ -95,7 +100,7 @@
 </template>
 
 <script>
-import JQuery from 'jquery'
+import JQuery from "jquery";
 let $ = JQuery;
 
 export default {
@@ -116,7 +121,8 @@ export default {
         inputTag: "",
         tagLimit: 25
       },
-      allTags: []
+      allTags: [],
+      allTagsTmp: []
     };
   },
   methods: {
@@ -126,7 +132,7 @@ export default {
         correct: false
       });
     },
-    
+
     beginsWith(tagName) {
       return tagName.startsWith(this.blankTmp.inputTag);
     },
@@ -147,10 +153,11 @@ export default {
     },
 
     isChecked(tagName) {
-      if (this.blankTmp.tags.find(element => element.text === tagName)) return true;
+      if (this.blankTmp.tags.find(element => element.text === tagName))
+        return true;
       return false;
     },
-    
+
     prepareJson() {
       let blankTest = {
         name: this.blankTmp.name,
@@ -159,12 +166,10 @@ export default {
         blankSymbols: this.blankTmp.blankSymbols,
         tags: this.blankTmp.tags
       };
-
       let regex = /\{.*?\}/g;
       let match = this.blankTmp.text.match(regex);
-
       for (var i in match) {
-        blankTest.text = blankTest.text.replace(match[i], "{" + i + "}");
+        //blankTest.text = blankTest.text.replace(match[i], "{" + i + "}");
       }
 
       return blankTest;
@@ -198,7 +203,7 @@ export default {
     removeAnswer(blankId, answerId) {
       this.blankTmp.blankSymbols[blankId].answers.splice(answerId, 1);
     },
-    
+
     toggleTag(tagName) {
       for (var i in this.blankTmp.tags) {
         if (this.blankTmp.tags[i].text == tagName) {
@@ -210,27 +215,34 @@ export default {
         text: tagName
       });
     },
-    
+
     zapisz: function() {
       $("#blankTest").modal("toggle");
-      if (this.id){
+      if (this.id) {
         this.EditTest();
-      }
-      else {
+      } else {
         this.SendTest();
       }
-    },
+    }
   },
   mounted() {
     if (this.id) this.blankTmp = this.$store.getters.getBlankById(this.id);
+    this.$req.get("/tags").then(response => {
+      this.allTagsTmp = response.data._embedded.tags;
+    });
   },
   computed: {
     filteredTags: function() {
+      if (typeof this.allTagsTmp === "undefined") {
+        let emptyArray = [];
+        return emptyArray;
+      }
       let tags = this.allTagsTmp.filter(element => {
         return this.beginsWith(element.text);
       });
 
-      if (tags.length > this.blankTmp.tagLimit) tags.splice(this.blankTmp.tagLimit);
+      if (tags.length > this.blankTmp.tagLimit)
+        tags.splice(this.blankTmp.tagLimit);
 
       return tags;
     },
@@ -261,14 +273,13 @@ export default {
     },
 
     blankTmp: {
-      get: function(){
+      get: function() {
         if (this.id) {
           return this.$store.getters.getBlankById(this.id);
         } else return this.t;
       },
-      set: function(){
-      },
-    },
+      set: function() {}
+    }
   }
 };
 </script>

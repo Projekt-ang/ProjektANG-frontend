@@ -8,7 +8,7 @@
       <input required v-model="password" type="password" placeholder="Password">
       <div class="row">
         <div class="col-12">
-          <router-link :to="'/ForgottenPassword'">
+          <router-link :to="'/forgotten-password'">
             <button class="btn-primary mt-3 col-2">Nie pamiętam hasła</button>
           </router-link>
         </div>

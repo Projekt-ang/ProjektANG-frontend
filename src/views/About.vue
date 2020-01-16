@@ -2,14 +2,9 @@
   <div class="about">
     <h1>Lista testów</h1>
     <router-link :to="'/CreateReadingVideoTest'">
-      <button class="btn btn-success btn-lg m-4" v-if="role == 'LEKTOR'">
-        Dodaj test
-      </button>
+      <button class="btn btn-success btn-lg m-4" v-if="role == 'LEKTOR'">Dodaj test</button>
     </router-link>
-    <table
-      table
-      class="table table-striped table-hover table-bordered w-50 mx-auto"
-    >
+    <table table class="table table-striped table-hover table-bordered w-50 mx-auto">
       <thead>
         <th>Nazwa</th>
         <th>Autor</th>
@@ -33,10 +28,8 @@
             <td class="align-middle">Reading</td>
             <td class="align-middle">10</td>
             <td class="align-middle">
-              <button class="btn-danger" @click.stop="deleteTest(test.id)">
-                Usuń
-              </button>
-              <router-link :to="'/EditReadingVideoTest/' + test.id">
+              <button class="btn-danger" @click.stop="deleteTest(test.id)">Usuń</button>
+              <router-link :to="'/edit-reading-video-test/' + test.id">
                 <button class="btn-primary">Edytuj</button>
               </router-link>
             </td>
@@ -57,18 +50,14 @@
                           :key="questionIdx"
                         >
                           <h4 class="m-3">Pytanie {{ questionIdx + 1 }}</h4>
-                          <p class="m-1 font-weight-bolder">
-                            {{ question.question }}
-                          </p>
+                          <p class="m-1 font-weight-bolder">{{ question.question }}</p>
                           <div
                             class="row justify-content-md-center"
                             v-for="(answer, answerIdx) in question.answers"
                             :key="answerIdx"
                           >
                             <div class="col-8">
-                              <p class="m-1 text-justify">
-                                {{ answer.answer }}
-                              </p>
+                              <p class="m-1 text-justify">{{ answer.answer }}</p>
                             </div>
                           </div>
                         </div>

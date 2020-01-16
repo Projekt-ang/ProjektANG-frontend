@@ -20,7 +20,7 @@
               <td>{{user.last_name}}</td>
               <td>{{user.username}}</td>
               <td>
-                <router-link :to="'/EditUser/'+(user.user_id)">
+                <router-link :to="'/edit-user/'+(user.id)">
                   <button class="btn-primary mb-1">Edytuj</button>
                 </router-link>
                 <button class="btn-danger" @click="deleteUser(userId)">Usuń</button>
@@ -57,22 +57,7 @@ export default {
   },
   mounted() {
     this.$req.get("/users").then(response => {
-      //  this.users = response.data._embedded.users;
-    });
-
-    this.users.push({
-      user_id: 1,
-      email: "main@mail.com",
-      first_name: "Mariusz",
-      last_name: "Pudzianowski",
-      username: "MarPud"
-    });
-    this.users.push({
-      user_id: 1,
-      email: "mainus@mail.com",
-      first_name: "Adam",
-      last_name: "Malinowski",
-      username: "AdaMal"
+      this.users = response.data._embedded.users;
     });
   }
 };

@@ -2,13 +2,11 @@
   <div class="container">
     <div class="row">
       <div class="col-12 mt-5">
-        <router-link :to="'/CreateReadingVideoTest'">
+        <router-link :to="'/create-reading-video-test'">
           <button type="button" class="btn-primary col-12">Stwórz</button>
         </router-link>
         <router-link :to="'/About'">
-          <button type="button" class="btn-primary mt-5 col-12">
-            Przeglądaj
-          </button>
+          <button type="button" class="btn-primary mt-5 col-12">Przeglądaj</button>
         </router-link>
       </div>
     </div>

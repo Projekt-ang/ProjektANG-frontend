@@ -5,11 +5,11 @@
     </div>
     <div class="row">
       <div class="col-12" v-if="isLoggedIn">
-        <router-link :to="'/EditPassword'">
+        <router-link :to="'/edit-password'">
           <button class="btn-primary col-12 mt-3">zmień hasło</button>
         </router-link>
 
-        <router-link :to="'/EditMail'">
+        <router-link :to="'/edit-mail'">
           <button class="btn-primary col-12 mt-3">zmień e-mail</button>
         </router-link>
       </div>

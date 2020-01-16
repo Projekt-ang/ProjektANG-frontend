@@ -70,18 +70,9 @@ export default {
     }
   },
   mounted() {
-    /*this.$req.get("/users/" + this.$route.params.id).then(response => {
+    this.$req.get("/users/" + this.$route.params.id).then(response => {
       this.user = response.data;
     });
-    */
-    this.user = {
-      id: this.$route.params.id,
-      email: "rest@test.pl",
-      first_name: "Adam",
-      last_name: "Nowak",
-      username: "Adanow"
-    };
-    console.log(this.user);
   }
 };
 </script>

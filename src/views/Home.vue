@@ -6,7 +6,7 @@
       <home-admin v-else-if="this.user.roles.indexOf('ROLE_ADMIN') >= 0"/>
       <home-unconfirmed v-else-if="this.user.roles.indexOf('ROLE_UNCONFIRMED') >= 0"/>
     </div>
-    <login v-else />
+    <login v-else/>
   </div>
 </template>
 
