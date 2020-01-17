@@ -181,7 +181,7 @@ export default {
     },
 
     isChecked(tagName) {
-      if (this.tags.find(element => element.text === tagName)) return true;
+      //if (this.tags.find(element => element.text === tagName)) return true;
       return false;
     },
 
@@ -238,15 +238,17 @@ export default {
     }
   },
   mounted() {
+    this.tags = [];
     this.$req
-      .get("/readingVideoTests/" + this.$route.params.id)
+      .get("/api/readingVideoTest/" + this.$route.params.id)
       .then(response => {
-        this.id = response.data.id;
-        this.text = response.data.text;
-        this.questions = response.data.questions;
-        this.author = response.data.author;
-        this.name = response.data.name;
-        this.tags = response.data.tags;
+        console.log(response.data);
+        this.id = response.data.body.id;
+        this.text = response.data.body.text;
+        this.questions = response.data.body.questions;
+        this.author = response.data.body.author;
+        this.name = response.data.body.name;
+        this.tags = response.data.body.tags;
         this.questions.forEach((question, idx) => {
           question.answers.forEach((answer, idx2) => {
             if (answer.correct === true) {

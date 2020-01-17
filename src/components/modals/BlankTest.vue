@@ -230,6 +230,7 @@ export default {
     this.$req.get("/tags").then(response => {
       this.allTagsTmp = response.data._embedded.tags;
     });
+    //this.allTagsTmp = this.$store.getters.tags;
   },
   computed: {
     filteredTags: function() {

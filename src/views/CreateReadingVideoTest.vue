@@ -196,6 +196,7 @@ export default {
       fullTest.author = this.author;
       fullTest.name = this.name;
       fullTest.tags = this.tags;
+      console.log(fullTest);
       return fullTest;
     },
 

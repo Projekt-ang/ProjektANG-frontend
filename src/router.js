@@ -29,6 +29,7 @@ import EditPassword from "./views/Settings/EditPassword.vue";
 import EditMail from "./views/Settings/EditMail.vue";
 import PasswordReset from "./views/Settings/PasswordReset.vue";
 import ForgottenPassword from "./views/ForgottenPassword.vue";
+import TextResult from "./views/Panel/User/TextResult.vue";
 Vue.use(Router);
 
 let router = new Router({
@@ -78,10 +79,7 @@ let router = new Router({
 		{
 			path: "/edit-glossary/:id",
 			name: "EditGlossary",
-			component: EditGlossary,
-			meta: {
-				authorize: ["ROLE_LEKTOR"]
-			}
+			component: EditGlossary
 		},
 		{
 			path: "/add-email",
@@ -173,6 +171,11 @@ let router = new Router({
 			path: "/forgotten-password",
 			name: "ForgottenPassword",
 			component: ForgottenPassword
+		},
+		{
+			path: "/text-result",
+			name: "TextResult",
+			component: TextResult
 		}
 	]
 });

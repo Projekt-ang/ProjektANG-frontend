@@ -43,10 +43,10 @@ export default {
       this.$req
         .get(`glossaries/search/findByWord?word=${this.word}`)
         .then(
-          (document.getElementById("word").style["background-color"] = "green")
+          (document.getElementById("word").style["background-color"] = "red")
         )
         .catch(
-          (document.getElementById("word").style["background-color"] = "red")
+          (document.getElementById("word").style["background-color"] = "green")
         );
     },
 

@@ -28,7 +28,7 @@ export default {
         })
           .fromString(evt.target.result)
           .then(json => {
-            req
+            this.$req
               .post("/api/massRegister", json)
               .then(function() {
                 alert("wysłano poprawnie");

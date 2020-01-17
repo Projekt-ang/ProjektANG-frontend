@@ -23,7 +23,7 @@
                 <router-link :to="'/edit-user/'+(user.id)">
                   <button class="btn-primary mb-1">Edytuj</button>
                 </router-link>
-                <button class="btn-danger" @click="deleteUser(userId)">Usuń</button>
+                <button class="btn-danger" @click="deleteUser(user.id)">Usuń</button>
               </td>
             </tr>
           </tbody>
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     deleteUser(userId) {
-      if (confirm("Cy na pewno usunąć użytkownika?")) {
+      if (confirm("Czy na pewno usunąć użytkownika?")) {
         this.$req
           .delete("/api/users/" + userId)
           .then(function() {

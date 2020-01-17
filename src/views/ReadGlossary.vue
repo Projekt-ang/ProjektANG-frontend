@@ -14,10 +14,10 @@
               <td class="align-middle">{{ word.word }}</td>
               <td class="align-middle">{{ word.definition }}</td>
               <td class="align-middle">
-                <router-link :to="'/EditGlossary/' + word.id">
+                <router-link :to="'/edit-glossary/' + word.id">
                   <button class="btn-primary mr-2">Edytuj</button>
                 </router-link>
-                <button class="btn-danger" @click.stop="deleteWord(wordId, word)">Usuń</button>
+                <button class="btn-danger" @click.stop="deleteWord(word.id, word)">Usuń</button>
               </td>
             </tr>
           </tbody>
