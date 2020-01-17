@@ -181,7 +181,7 @@ export default {
     },
 
     isChecked(tagName) {
-      //if (this.tags.find(element => element.text === tagName)) return true;
+      if (this.tags.find(element => element.text === tagName)) return true;
       return false;
     },
 
@@ -199,6 +199,8 @@ export default {
       fullTest.text = this.text;
       fullTest.name = this.name;
       fullTest.author = this.author;
+      fullTest.tags = this.tags;
+      console.log(fullTest);
       return fullTest;
     },
 
@@ -242,7 +244,6 @@ export default {
     this.$req
       .get("/api/readingVideoTest/" + this.$route.params.id)
       .then(response => {
-        console.log(response.data);
         this.id = response.data.body.id;
         this.text = response.data.body.text;
         this.questions = response.data.body.questions;
