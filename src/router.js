@@ -30,6 +30,7 @@ import EditMail from "./views/Settings/EditMail.vue";
 import PasswordReset from "./views/Settings/PasswordReset.vue";
 import ForgottenPassword from "./views/ForgottenPassword.vue";
 import TextResult from "./views/Panel/User/TextResult.vue";
+import BlankTest from "./views/BlankTest.vue";
 Vue.use(Router);
 
 let router = new Router({
@@ -176,6 +177,11 @@ let router = new Router({
 			path: "/text-result",
 			name: "TextResult",
 			component: TextResult
+		},
+		{
+			path: "/blank-test/:id",
+			name: "BlankTest",
+			component: BlankTest
 		}
 	]
 });

@@ -122,10 +122,7 @@ export default {
   },
   computed: {
     user: function() {
-      return {
-        id: 1
-      };
-      //return this.$store.getters.getUser;
+      return this.$store.getters.getUser;
     }
   }
 };
