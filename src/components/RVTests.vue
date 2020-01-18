@@ -14,7 +14,10 @@
         <tr v-for="(test, idx) in this.$store.state.readingVideoTests" :key="idx">
           <td class="align-middle">{{test.name}}</td>
           <td class="align-middle">{{test.author}}</td>
-          <td class="align-middle">{{test.tags}}</td>
+          <td class="align-middle">
+            <div v-if="test.tags.length === 0">Brak</div>
+            <div v-for="(tag, idx) in test.tags" :key="idx">{{tag.text}}</div>
+          </td>
           <td class="align-middle">
             <button class="btn btn-danger m-1 btn-rounded" @click="modalDelete(test.id)">Usuń</button>
             <button class="btn btn-primary m-1" @click="modalEdit(test.id, test)">Edytuj</button>

@@ -34,25 +34,28 @@ export default {
     },
   },
   methods: {
-      usun: function(id) {
-        if (this.typ === 'blank'){
-            this.$req.delete("/api/BlankInsertTest/" + this.id).then(function(){
-                alert("Test usunieto poprawnie"); 
-            }).catch(function(error){     
-                console.log(error);
-                alert("Wystąpił błąd podczas usuwania testu. Proszę spróbować ponownie"); 
-            });
-        }
-        else if (this.typ === 'readingvideo'){
-          this.$req.delete("/api/ReadingVideoTest/" + this.id).then(function(){
-                alert("Test usunieto poprawnie"); 
-            }).catch(function(error){     
-                console.log(error);
-                alert("Wystąpił błąd podczas usuwania testu. Proszę spróbować ponownie"); 
-            });
-        }
-      },
-
-    }
+    usun: function(id) {
+      if (this.typ === 'blank'){
+        this.$req.delete("/api/BlankInsertTest/" + id)
+        .then(function(){
+          alert("Test usunieto poprawnie"); 
+        })
+        .catch(function(error){
+          console.log(error);
+          alert("Wystąpił błąd podczas usuwania testu. Proszę spróbować ponownie"); 
+        });
+      }
+      else if (this.typ === 'readingvideo'){
+        this.$req.delete("/api/ReadingVideoTest/" + id)
+          .then(function(){
+            alert("Test usunieto poprawnie"); 
+          })
+          .catch(function(error){     
+            console.log(error);
+            alert("Wystąpił błąd podczas usuwania testu. Proszę spróbować ponownie"); 
+          });
+      }
+    },
+  }
 }
 </script>

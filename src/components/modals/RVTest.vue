@@ -83,10 +83,10 @@
                           <input
                             type="radio"
                             class="col-1 form-control"
-                            v-model="TestTmp.correctAnswers[questionIdx]"
+                            v-model="poprawneOdpowiedzi[questionIdx]"
                             :name="question + questionIdx"
                             :value="answerIdx"
-                            :checked="TestTmp.correctAnswers[questionIdx]"
+                            :checked="poprawneOdpowiedzi[questionIdx]"
                             required
                           >
                           <input
@@ -127,10 +127,9 @@
 <script>
 import JQuery from "jquery";
 let $ = JQuery;
-import axios from "axios";
 
 export default {
-  name: "InsertBlanks",
+  name: "ReadVideo",
   props: {
     id: {
       required: false
@@ -145,7 +144,6 @@ export default {
         text: "",
         name: "",
         author: "",
-        correctAnswers: [],
         questions: [
           {
             question: "",
@@ -158,6 +156,7 @@ export default {
           }
         ]
       },
+      correctAnswers: [],
       allTags: [],
       allTagsTmp: []
     };
@@ -210,7 +209,7 @@ export default {
         question.answers.forEach(answer => {
           answer.correct = false;
         });
-        question.answers[this.TestTmp.correctAnswers[idx]].correct = true;
+        question.answers[this.poprawneOdpowiedzi[idx]].correct = true;
       });
       let fullTest = {
         questions: this.TestTmp.questions
@@ -309,6 +308,17 @@ export default {
         } else return this.t;
       },
       set: function() {}
+    },
+    poprawneOdpowiedzi: function() {
+      let correctAnswers = [];
+      this.TestTmp.questions.forEach((question, idx) => {
+        question.answers.forEach((answer, idx2) => {
+          if (answer.correct === true) {
+            correctAnswers[idx] = idx2;
+          }
+        });
+      });
+      return correctAnswers;
     }
   }
 };
