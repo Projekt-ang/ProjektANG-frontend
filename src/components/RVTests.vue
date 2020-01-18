@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(test, idx) in this.$store.state.blankTests" :key="idx">
+        <tr v-for="(test, idx) in this.$store.state.readingVideoTests" :key="idx">
           <td class="align-middle">{{test.name}}</td>
           <td class="align-middle">{{test.author}}</td>
           <td class="align-middle">{{test.tags}}</td>
@@ -22,8 +22,8 @@
         </tr>
       </tbody>
     </table>
-    <BlankModal :id="idTmp"/>
-    <confirmDeleteModal :id="idTmp" typ="blank"/>
+    <RVTestModal :id="idTmp"/>
+    <confirmDeleteModal :id="idTmp" typ="readingvideo"/>
   </div>
 </template>
 
@@ -31,27 +31,27 @@
 import JQuery from "jquery";
 let $ = JQuery;
 
-import BlankModal from "@/components/modals/BlankTest";
+import RVTestModal from "@/components/modals/RVTest";
 import confirmDeleteModal from "@/components/modals/ConfirmDelete";
 export default {
-  name: "BlankTests",
+  name: "ReadingVideoTests",
   components: {
-    BlankModal,
+    RVTestModal,
     confirmDeleteModal
   },
   data() {
     return {
-      idTmp: undefined,
+      idTmp: undefined
     };
   },
   methods: {
     modalAdd: function() {
       this.idTmp = undefined;
-      $("#blankTest").modal("toggle");
+      $("#RVTest").modal("toggle");
     },
     modalEdit: function(id) {
       this.idTmp = id;
-      $("#blankTest").modal("toggle");
+      $("#RVTest").modal("toggle");
     },
     modalDelete: function(id) {
       this.idTmp = id;

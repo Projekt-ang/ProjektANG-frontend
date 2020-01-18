@@ -16,6 +16,8 @@ export default {
   mounted(){
     this.$store.dispatch("loadBlankTests");
     this.$store.dispatch("loadTags");
+    this.$store.dispatch("loadRVTests");
+    this.$store.dispatch("loadGlossary");
   }
 };
 </script>
