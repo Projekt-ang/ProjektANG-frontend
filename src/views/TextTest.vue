@@ -41,6 +41,7 @@
                   <div class="col-sm">
                     <input
                       type="radio"
+                      required
                       class="form-check-input"
                       :name="'odp' + idx"
                       @change="

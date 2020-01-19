@@ -31,6 +31,7 @@ import PasswordReset from "./views/Settings/PasswordReset.vue";
 import ForgottenPassword from "./views/ForgottenPassword.vue";
 import TextResult from "./views/Panel/User/TextResult.vue";
 import BlankTest from "./views/BlankTest.vue";
+import Register from "./views/Register.vue";
 Vue.use(Router);
 
 let router = new Router({
@@ -182,7 +183,12 @@ let router = new Router({
 			path: "/blank-test/:id",
 			name: "BlankTest",
 			component: BlankTest
-		}
+		},
+    {
+      path:"/register",
+      name:"Register",
+      component:Register
+    }
 	]
 });
 
