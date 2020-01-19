@@ -10,7 +10,7 @@
           </router-link>
         </div>
         <div class="col-sm">
-          <router-link :to="'/Testy'">
+          <router-link :to="'/Tests'">
             <button class="btn btn-sq-lg btn-success">
               <h2>Testy</h2>
             </button>
