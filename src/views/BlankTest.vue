@@ -191,7 +191,7 @@ export default {
 
       for (var m in odp) {
         select[m] = "";
-        select[m] += "<select class='answerSelect'>";
+        select[m] += "<select required class='answerSelect'>";
         select[m] += "<option> </option>";
         for (var n in odp[m]) {
           select[m] += "<option>" + odp[m][n] + "</option>";

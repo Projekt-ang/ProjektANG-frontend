@@ -41,7 +41,7 @@
                   </div>
                   <div id="tags" class="row">
                     <span
-                      v-for="(tag,tagId) in allTagsTmp"
+                      v-for="(tag,tagId) in filteredTags"
                       :key="tagId"
                       v-bind:class="{ 'colored-tag': isChecked(tag.text)}"
                       @click="toggleTag(tag.text)"
@@ -233,11 +233,11 @@ export default {
     //this.allTagsTmp = this.$store.getters.tags;
   },
   computed: {
+    getTags() {
+      return this.$store.getters.tags;
+    },
     filteredTags: function() {
-      if (typeof this.allTagsTmp === "undefined") {
-        let emptyArray = [];
-        return emptyArray;
-      }
+      this.allTagsTmp = this.getTags;
       let tags = this.allTagsTmp.filter(element => {
         return this.beginsWith(element.text);
       });

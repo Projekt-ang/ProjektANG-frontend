@@ -2,6 +2,9 @@
   <div class="vertical-center">
     <div class="container">
       <div class="row">
+        <h1>Panel użytkownika</h1>
+      </div>
+      <div class="row">
         <div class="col-sm">
           <router-link :to="'/Settings'">
             <button class="btn btn-sq-lg btn-primary">
@@ -10,7 +13,7 @@
           </router-link>
         </div>
         <div class="col-sm">
-          <router-link :to="'/Testy'">
+          <router-link :to="'/Tests'">
             <button class="btn btn-sq-lg btn-success">
               <h2>Testy</h2>
             </button>

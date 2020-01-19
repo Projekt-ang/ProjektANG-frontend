@@ -49,7 +49,7 @@ let router = new Router({
 			component: About
 		},
 		{
-			path: "/about/:id",
+			path: "/reading-video-test/:id",
 			name: "test",
 			component: TextTest
 		},
@@ -184,11 +184,11 @@ let router = new Router({
 			name: "BlankTest",
 			component: BlankTest
 		},
-    {
-      path:"/register",
-      name:"Register",
-      component:Register
-    }
+		{
+			path: "/register",
+			name: "Register",
+			component: Register
+		}
 	]
 });
 
