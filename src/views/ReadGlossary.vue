@@ -7,12 +7,14 @@
           <thead>
             <th>Słowo</th>
             <th>Definicja</th>
+            <th>Przykład użycia</th>
             <th>Akcja</th>
           </thead>
           <tbody>
             <tr v-for="(word, wordId) in words" :key="wordId">
               <td class="align-middle">{{ word.word }}</td>
               <td class="align-middle">{{ word.definition }}</td>
+              <td class="align-middle">{{ word.usageExamples[0].sentence}}</td>
               <td class="align-middle">
                 <router-link :to="'/edit-glossary/' + word.id">
                   <button class="btn-primary mr-2">Edytuj</button>
@@ -57,6 +59,7 @@ export default {
   mounted() {
     this.$req.get("/glossaries").then(response => {
       this.words = response.data._embedded.glossaries;
+      console.log(this.words);
     });
   },
   computed: {
