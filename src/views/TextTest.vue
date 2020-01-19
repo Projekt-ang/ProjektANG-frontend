@@ -4,7 +4,7 @@
     <div class="mt-3 mb-3">
       <button type="button" class="btn-primary mt-3" @click="showModal">Glosariusz dla tego testu</button>
     </div>
-    <div class>
+    <div>
       <div class="col-12 mt-3" v-if="glossaryStatus">
         <table table class="table table-striped table-hover table-bordered w-50 mx-auto">
           <thead>
@@ -151,6 +151,7 @@ export default {
           !this.foundWords.includes(this.glossary[i].word)
         ) {
           this.foundWords.push(this.glossary[i].word);
+          console.log(this.glossary[i].word);
         }
 
         this.test.text = this.test.text.replace(
@@ -178,13 +179,13 @@ export default {
           this.test.questions[i].answers = _.shuffle(
             this.test.questions[i].answers
           );
-          this.setGlossary();
         }
+      })
+      .finally(() => {
+        this.glossary = this.$store.getters.glossary;
+        this.setGlossary();
+        console.log("done");
       });
-    this.$req.get("/glossaries").then(response => {
-      this.glossary = response.data._embedded.glossaries;
-      this.setGlossary();
-    });
   },
   computed: {
     user: function() {

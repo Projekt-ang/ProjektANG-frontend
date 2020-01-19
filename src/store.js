@@ -15,9 +15,9 @@ export default new Vuex.Store({
 			localStorage.getItem("prAngUser") || "{}"
 		),
 		blankTests: [],
-    tags: [],
-    readingVideoTests: [],
-    glossary: []
+		tags: [],
+		readingVideoTests: [],
+		glossary: []
 	},
 	mutations: {
 		auth_request(state) {
@@ -40,13 +40,13 @@ export default new Vuex.Store({
 		},
 		setTags(state, tags) {
 			state.tags = tags;
-    },
-    setRVTests(state, RVTest){
-      state.readingVideoTests = RVTest;
-    },
-    setGlossary(state, glosariusz){
-      state.glossary = glosariusz;
-    }
+		},
+		setRVTests(state, RVTest) {
+			state.readingVideoTests = RVTest;
+		},
+		setGlossary(state, glosariusz) {
+			state.glossary = glosariusz;
+		}
 	},
 	actions: {
 		login({ commit }, user) {
@@ -128,40 +128,45 @@ export default new Vuex.Store({
 						response.data._embedded.tags
 					);
 				});
-    },
-    loadRVTests({ commit }) {
-      axios
-        .get("http://18.195.242.27:8080/api/readingVideoTests")
-        .then(response => {
-          commit (
-            "setRVTests",
-            response.data.body
-          );
-        });
-    },
-    loadGlossary({ commit }) {
-      axios
-        .get("http://18.195.242.27:8080/glossaries")
-        .then(response => {
-          commit (
-            "setGlossary",
-            response.data._embedded.glossaries
-          );
-        });
-    }
+		},
+		loadRVTests({ commit }) {
+			axios
+				.get(
+					"http://18.195.242.27:8080/api/readingVideoTests"
+				)
+				.then(response => {
+					commit(
+						"setRVTests",
+						response.data.body
+					);
+				});
+		},
+		loadGlossary({ commit }) {
+			axios
+				.get(
+					"http://18.195.242.27:8080/glossaries"
+				)
+				.then(response => {
+					commit(
+						"setGlossary",
+						response.data._embedded.glossaries
+					);
+				});
+		}
 	},
 	getters: {
 		isLoggedIn: state => !!state.token,
 		authStatus: state => state.authStatus,
 		tags: state => state.tags,
+		glossary: state => state.glossary,
 		getBlankById: state => id =>
 			state.blankTests.find(
 				blank => blank.id === id
 			),
-    getUser: state => state.user,
-    getRVTestById: state => id =>
-      state.readingVideoTests.find(
-        rvt => rvt.id === id
-      ),
+		getUser: state => state.user,
+		getRVTestById: state => id =>
+			state.readingVideoTests.find(
+				rvt => rvt.id === id
+			)
 	}
 });

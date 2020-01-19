@@ -22,16 +22,19 @@ export default {
   name: "Results",
   data() {
     return {
-      results: [],
-      user: {}
+      results: []
     };
   },
   methods: {},
   mounted() {
-    this.$req.get("/api/get-user-results/" + user.id).then(response => {
+    this.$req.get("/api/get-user-results/" + this.user.id).then(response => {
       this.results = response.data._embedded;
-      this.user = this.$store.getters.user;
     });
+  },
+  computed: {
+    user: function() {
+      return this.$store.getters.getUser;
+    }
   }
 };
 </script>

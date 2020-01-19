@@ -58,7 +58,11 @@
                   <vue-editor v-model="TestTmp.text" required/>
                   <h3 class="m-4">Pytania:</h3>
                   <div class="row">
-                    <div class="col-6" v-for="(question, questionIdx) in TestTmp.questions" :key="questionIdx">
+                    <div
+                      class="col-6"
+                      v-for="(question, questionIdx) in TestTmp.questions"
+                      :key="questionIdx"
+                    >
                       <div class="row">
                         <input
                           type="text"
@@ -111,9 +115,16 @@
                       >Nowa odpowiedź</button>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-primary m-1" @click="addQuestion">Nowe pytanie</button>
+                  <button
+                    type="button"
+                    class="btn btn-primary m-1"
+                    @click="addQuestion"
+                  >Nowe pytanie</button>
                   <br>
-                  <button type="submit" class="col-3 form-control btn btn-success mt-1 mb-3">Zatwierdź test</button>
+                  <button
+                    type="submit"
+                    class="col-3 form-control btn btn-success mt-1 mb-3"
+                  >Zatwierdź test</button>
                 </form>
               </div>
             </div>
@@ -219,7 +230,6 @@ export default {
       fullTest.name = this.TestTmp.name;
       fullTest.author = this.TestTmp.author;
       fullTest.tags = this.TestTmp.tags;
-      console.log(fullTest);
       return fullTest;
     },
 
@@ -234,7 +244,7 @@ export default {
     sendTest() {
       let fullTest = this.prepareJson();
       this.$req
-        .post("/api/ReadingVideoTest", fullTest)
+        .post("/api/readingVideoTest", fullTest)
         .then(function() {
           alert("Test wysłano poprawnie");
         })
@@ -248,7 +258,7 @@ export default {
     editTest() {
       let fullTest = this.prepareJson();
       this.$req
-        .put("/api/ReadingInsertTest/" + this.id, fullTest)
+        .put("/api/readingVideoTest/" + this.id, fullTest)
         .then(() => {
           alert("poprawna edycja testu");
         })
@@ -300,7 +310,7 @@ export default {
 
       return tags;
     },
-    
+
     TestTmp: {
       get: function() {
         if (this.id) {
@@ -313,11 +323,12 @@ export default {
       let correctAnswers = [];
       this.TestTmp.questions.forEach((question, idx) => {
         question.answers.forEach((answer, idx2) => {
-          if (answer.correct === true) {
+          if (answer.correct == true) {
             correctAnswers[idx] = idx2;
           }
         });
       });
+
       return correctAnswers;
     }
   }

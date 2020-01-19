@@ -4,11 +4,34 @@
       <h1 class="col-12">Test ukończony</h1>
       <h2>Twój wynik to: {{points + " / "+ maxPoints }}</h2>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <button type="button" class="btn-primary mt-3" @click="showModal">Glosariusz dla tego testu</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mt-3" v-if="glossaryStatus">
+        <table table class="table table-striped table-hover table-bordered w-50 mx-auto">
+          <thead>
+            <th>Słowo</th>
+            <th>Definicja</th>
+            <th>Przykłady</th>
+          </thead>
+          <tbody>
+            <tr v-for="(word,wordId) in filteredGlossary" :key="wordId">
+              <td>{{word.word}}</td>
+              <td>{{word.definition}}</td>
+              <td v-html="showSentences[wordId]"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <div v-if="test" class="row">
       <h2 class="col-12">Przeczytaj tekst i w lukach wybierz odpowiednie odpowiedzi</h2>
       <div class="m-5">
         <div class="row d-flex justify-content-center">
-          <div class="col-10" v-html="processedHtml"></div>
+          <div class="col-12" v-html="processedHtml"></div>
         </div>
       </div>
     </div>
@@ -34,7 +57,10 @@ export default {
       checked: false,
       points: 0,
       maxPoints: 0,
-      answers: []
+      answers: [],
+      glossary: [],
+      glossaryStatus: false,
+      foundWords: []
     };
   },
   methods: {
@@ -97,6 +123,31 @@ export default {
         });
     },
 
+    setGlossary() {
+      for (var i in this.glossary) {
+        let preparedString =
+          "<span class='glossarySpan' id='" +
+          this.glossary[i].id +
+          "' @click='showModal'>";
+        preparedString += this.glossary[i].word + "</span>";
+
+        if (
+          this.test.text.includes(this.glossary[i].word) &&
+          !this.foundWords.includes(this.glossary[i].word)
+        ) {
+          this.foundWords.push(this.glossary[i].word);
+        }
+
+        this.test.text = this.test.text.replace(
+          this.glossary[i].word,
+          preparedString
+        );
+      }
+    },
+    showModal() {
+      this.glossaryStatus = !this.glossaryStatus;
+    },
+
     findAnswer(answer) {
       for (var i in this.test.blankSymbols) {
         for (var j in this.test.blankSymbols[i].answers) {
@@ -113,6 +164,8 @@ export default {
       .get("/api/BlankInsertTest/" + this.$route.params.id)
       .then(response => {
         this.test = response.data.body;
+        this.glossary = this.$store.getters.glossary;
+        console.log(this.glossary);
       });
   },
 
@@ -120,6 +173,7 @@ export default {
     processedHtml() {
       let regex = /\{.*?\}/g;
       let match = this.test.text.match(regex);
+      this.setGlossary();
       let converted = this.test.text;
 
       var odp = [];
@@ -148,10 +202,37 @@ export default {
       for (var i in match) {
         converted = converted.replace(match[i], select[i]);
       }
+      console.log(converted);
+
       return converted;
     },
     user: function() {
       return this.$store.getters.getUser;
+    },
+    showSentences: function() {
+      let sentences = [];
+      let combined = "";
+      for (var i in this.glossary) {
+        combined = "";
+        for (var j in this.glossary[i].usageExamples) {
+          combined += this.glossary[i].usageExamples[j].sentence + "<br/><br/>";
+        }
+        sentences.push(combined);
+      }
+
+      return sentences;
+    },
+    filteredGlossary: function() {
+      let filtered = [];
+      for (var i in this.glossary) {
+        for (var j in this.foundWords) {
+          if (this.glossary[i].word == this.foundWords[j]) {
+            filtered.push(this.glossary[i]);
+          }
+        }
+      }
+      console.log(filtered);
+      return filtered;
     }
   }
 };
@@ -160,5 +241,11 @@ export default {
 <style>
 li {
   list-style-type: none;
+}
+
+.glossarySpan {
+  font-weight: 900;
+  cursor: pointer;
+  color: red;
 }
 </style>
