@@ -58,7 +58,11 @@
                   <vue-editor v-model="TestTmp.text" required/>
                   <h3 class="m-4">Pytania:</h3>
                   <div class="row">
-                    <div class="col-6" v-for="(question, questionIdx) in TestTmp.questions" :key="questionIdx">
+                    <div
+                      class="col-6"
+                      v-for="(question, questionIdx) in TestTmp.questions"
+                      :key="questionIdx"
+                    >
                       <div class="row">
                         <input
                           type="text"
@@ -111,9 +115,16 @@
                       >Nowa odpowiedź</button>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-primary m-1" @click="addQuestion">Nowe pytanie</button>
+                  <button
+                    type="button"
+                    class="btn btn-primary m-1"
+                    @click="addQuestion"
+                  >Nowe pytanie</button>
                   <br>
-                  <button type="submit" class="col-3 form-control btn btn-success mt-1 mb-3">Zatwierdź test</button>
+                  <button
+                    type="submit"
+                    class="col-3 form-control btn btn-success mt-1 mb-3"
+                  >Zatwierdź test</button>
                 </form>
               </div>
             </div>
@@ -219,7 +230,6 @@ export default {
       fullTest.name = this.TestTmp.name;
       fullTest.author = this.TestTmp.author;
       fullTest.tags = this.TestTmp.tags;
-      console.log(fullTest);
       return fullTest;
     },
 
@@ -300,7 +310,7 @@ export default {
 
       return tags;
     },
-    
+
     TestTmp: {
       get: function() {
         if (this.id) {

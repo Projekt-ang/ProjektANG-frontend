@@ -1,8 +1,8 @@
 <template>
   <div class="about">
     <h1>Lista testów</h1>
-    <router-link :to="'/CreateReadingVideoTest'">
-      <button class="btn btn-success btn-lg m-4" v-if="role == 'LEKTOR'">Dodaj test</button>
+    <router-link :to="'/create-reading-video-test'">
+      <button class="btn btn-success btn-lg m-4">Dodaj test</button>
     </router-link>
     <table table class="table table-striped table-hover table-bordered w-50 mx-auto">
       <thead>

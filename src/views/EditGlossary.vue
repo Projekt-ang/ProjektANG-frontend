@@ -20,6 +20,18 @@
             >
           </div>
           <div class="row">
+            <div class="col-12" v-for="(example,exampleId) in usageExamples" :key="exampleId">
+              <input type="text" class="mt-2 col-12" v-model="usageExamples[exampleId].sentence">
+            </div>
+          </div>
+          <div class="row">
+            <button
+              type="button"
+              class="col-12 btn-primary mt-3"
+              @click="newExample"
+            >Nowy przykład użycia</button>
+          </div>
+          <div class="row">
             <button type="submit" class="form-control btn-success col-12 mt-3">Zatwierdź</button>
           </div>
         </form>
@@ -34,14 +46,21 @@ export default {
   data() {
     return {
       word: "",
-      definition: ""
+      definition: "",
+      usageExamples: []
     };
   },
   methods: {
+    newExample() {
+      this.usageExamples.push({
+        sentence: ""
+      });
+    },
     prepareJSON() {
       let newWord = {
         word: this.word,
-        definition: this.definition
+        definition: this.definition,
+        usageExamples: this.usageExamples
       };
 
       return newWord;
@@ -67,6 +86,7 @@ export default {
       .then(response => {
         this.word = response.data.word;
         this.definition = response.data.definition;
+        this.usageExamples = response.data.usageExamples;
       })
       .catch(errors => {
         console.log(errors);
