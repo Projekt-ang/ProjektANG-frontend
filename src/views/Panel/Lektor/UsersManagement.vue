@@ -16,8 +16,8 @@
           <tbody>
             <tr v-for="(user,userId) in users" :key="userId">
               <td>{{user.email}}</td>
-              <td>{{user.first_name}}</td>
-              <td>{{user.last_name}}</td>
+              <td>{{user.firstName}}</td>
+              <td>{{user.lastName}}</td>
               <td>{{user.username}}</td>
               <td>
                 <router-link :to="'/edit-user/'+(user.id)">
@@ -56,7 +56,7 @@ export default {
     }
   },
   mounted() {
-    this.$req.get("/users").then(response => {
+    this.$req.get("users").then(response => {
       this.users = response.data._embedded.users;
     });
   }

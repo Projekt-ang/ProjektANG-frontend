@@ -1,14 +1,24 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 mt-5">
-        <router-link :to="'/create-reading-video-test'">
-          <button type="button" class="btn-primary col-12">Stwórz</button>
-        </router-link>
-        <router-link :to="'/About'">
-          <button type="button" class="btn-primary mt-5 col-12">Przeglądaj</button>
-        </router-link>
-      </div>
+  <div class="about">
+    <h1>CRUD Reading Video Tests</h1>
+    <div>
+      <RVTests />
     </div>
   </div>
 </template>
+
+
+<script>
+import RVTests from "@/components/RVTests";
+
+export default {
+  name: "RVTestsList",
+  components: {
+    RVTests,
+  },
+  data() {
+    return {
+    };
+  },
+};
+</script>

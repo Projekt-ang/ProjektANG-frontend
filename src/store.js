@@ -15,7 +15,9 @@ export default new Vuex.Store({
 			localStorage.getItem("prAngUser") || "{}"
 		),
 		blankTests: [],
-		tags: []
+    tags: [],
+    readingVideoTests: [],
+    glossary: []
 	},
 	mutations: {
 		auth_request(state) {
@@ -38,7 +40,13 @@ export default new Vuex.Store({
 		},
 		setTags(state, tags) {
 			state.tags = tags;
-		}
+    },
+    setRVTests(state, RVTest){
+      state.readingVideoTests = RVTest;
+    },
+    setGlossary(state, glosariusz){
+      state.glossary = glosariusz;
+    }
 	},
 	actions: {
 		login({ commit }, user) {
@@ -120,7 +128,27 @@ export default new Vuex.Store({
 						response.data._embedded.tags
 					);
 				});
-		}
+    },
+    loadRVTests({ commit }) {
+      axios
+        .get("http://18.195.242.27:8080/api/readingVideoTests")
+        .then(response => {
+          commit (
+            "setRVTests",
+            response.data.body
+          );
+        });
+    },
+    loadGlossary({ commit }) {
+      axios
+        .get("http://18.195.242.27:8080/glossaries")
+        .then(response => {
+          commit (
+            "setGlossary",
+            response.data._embedded.glossaries
+          );
+        });
+    }
 	},
 	getters: {
 		isLoggedIn: state => !!state.token,
@@ -130,28 +158,10 @@ export default new Vuex.Store({
 			state.blankTests.find(
 				blank => blank.id === id
 			),
-		//{
-		/* let tmp =  state.blankTests.find(blank => blank.id === id)
-
-          //zamiana {0} {1} itd na poprawne odpowiedzi w tekscie
-           let regex = /\{.*?\}/g;
-           let match = tmp.text.match(regex);
-           var odp = [];
-
-          for (var i in tmp.blankSymbols) {
-            odp[i] = '';
-            for (var j in tmp.blankSymbols[i].answers){
-              if (tmp.blankSymbols[i].answers[j].correct === true){
-                odp[i] += tmp.blankSymbols[i].answers[j].answer
-              }
-            }
-          }
-
-          for (var k in match) {
-            tmp.text = tmp.text.replace(match[k], '{' + odp[k] + '}')
-          }
-          return tmp;
-        },*/
-		getUser: state => state.user
+    getUser: state => state.user,
+    getRVTestById: state => id =>
+      state.readingVideoTests.find(
+        rvt => rvt.id === id
+      ),
 	}
 });
