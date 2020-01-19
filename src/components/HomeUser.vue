@@ -1,9 +1,7 @@
 <template>
   <div class="vertical-center">
     <div class="container">
-      <div class="row">
-        <h1>Panel użytkownika</h1>
-      </div>
+      <h1>Panel użytkownika</h1>
       <div class="row">
         <div class="col-sm">
           <router-link :to="'/Settings'">
@@ -39,17 +37,3 @@ export default {
   methods: {}
 };
 </script>
-
-<style>
-.btn-sq-lg {
-  width: 250px !important;
-  height: 250px !important;
-}
-.vertical-center {
-  min-height: 80%; /* Fallback for browsers do NOT support vh unit */
-  min-height: 70vh; /* These two lines are counted as one      */
-
-  display: flex;
-  align-items: center;
-}
-</style>

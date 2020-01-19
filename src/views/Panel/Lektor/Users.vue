@@ -1,19 +1,22 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 mt-5">
-        <router-link :to="'/mass-register'">
-          <button type="button" class="btn-primary col-12">Rejestracja masowa</button>
-        </router-link>
-        <router-link
-          :to="'/panel/lektor/users/users-management'"
-          v-if="this.user.roles.indexOf('ROLE_ADMIN')>=0"
-        >
-          <button type="button" class="btn-primary col-12 mt-5">Zarządzanie istniejącymi kontami</button>
-        </router-link>
-        <router-link :to="'/register'">
-          <button type="button" class="btn-primary col-12 mt-5">Rejestracja pojedynczego konta</button>
-        </router-link>
+  <div class="vertical-center">
+    <div class="container">
+      <h1>Zarządzanie Użytkownikami</h1>
+      <div class="row">
+        <div class="col-sm">
+          <router-link :to="'/mass-register'">
+            <button class="btn btn-sq-lg btn-primary">
+              <h2>Rejestracja masowa</h2>
+            </button>
+          </router-link>
+        </div>
+        <div class="col-sm">
+          <router-link :to="'/register'">
+            <button class="btn btn-sq-lg btn-primary">
+              <h2>Rejestracja pojedynczego konta</h2>
+            </button>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>

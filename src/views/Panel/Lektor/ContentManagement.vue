@@ -1,13 +1,22 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 mt-5">
-        <router-link :to="'/crud/tests'">
-          <button type="button" class="btn-primary col-12">Testy</button>
-        </router-link>
-        <router-link :to="'/crud/glossary'">
-          <button type="button" class="btn-primary mt-5 col-12">Glosariusz</button>
-        </router-link>
+  <div class="vertical-center">
+    <div class="container">
+      <h1>Zarządzanie Treścią</h1>
+      <div class="row">
+        <div class="col-sm">
+          <router-link :to="'/crud/tests'">
+            <button class="btn btn-sq-lg btn-primary">
+              <h2>Testy</h2>
+            </button>
+          </router-link>
+        </div>
+        <div class="col-sm">
+          <router-link :to="'/crud/glossary'">
+            <button class="btn btn-sq-lg btn-danger">
+              <h2>Glosariusz</h2>
+            </button>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>

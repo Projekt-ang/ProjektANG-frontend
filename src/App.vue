@@ -43,4 +43,18 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+.table-responsive{
+  font-size: 20px;
+}
+.btn-sq-lg {
+  width: 250px !important;
+  height: 250px !important;
+}
+.vertical-center {
+  min-height: 80%; /* Fallback for browsers do NOT support vh unit */
+  min-height: 70vh; /* These two lines are counted as one      */
+
+  display: flex;
+  align-items: center;
+}
 </style>

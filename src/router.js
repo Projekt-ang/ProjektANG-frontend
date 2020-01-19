@@ -32,6 +32,9 @@ import ForgottenPassword from "./views/ForgottenPassword.vue";
 import TextResult from "./views/Panel/User/TextResult.vue";
 import BlankTest from "./views/BlankTest.vue";
 import Register from "./views/Register.vue";
+import ListaBlanks from "./views/Panel/User/ListaBlanks.vue";
+import ListaRVT from "./views/Panel/User/ListaRVT.vue";
+
 Vue.use(Router);
 
 let router = new Router({
@@ -188,7 +191,17 @@ let router = new Router({
 			path: "/register",
 			name: "Register",
 			component: Register
-		}
+    },
+    {
+      path: "/tests/blank-tests",
+      name: "ListaBlanks",
+      component: ListaBlanks
+    },
+    {
+      path: "/tests/reading-video-tests",
+      name: "ListaRVT",
+      component: ListaRVT
+    }
 	]
 });
 

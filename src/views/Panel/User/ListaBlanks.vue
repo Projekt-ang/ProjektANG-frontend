@@ -1,5 +1,6 @@
 <template>
   <div class="table-responsive justify-content-center">
+    <h1 class="m-2">Lista testów z lukami </h1>
     <table class="m-5 table table-striped table-hover table-bordered w-auto mx-auto">
       <thead>
         <tr>
