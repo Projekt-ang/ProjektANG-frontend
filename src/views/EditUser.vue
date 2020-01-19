@@ -22,13 +22,13 @@
                 <tr>
                   <td>Imię</td>
                   <td>
-                    <input type="text" v-model="user.first_name">
+                    <input type="text" v-model="user.firstName">
                   </td>
                 </tr>
                 <tr>
                   <td>Nazwisko</td>
                   <td>
-                    <input type="text" v-model="user.last_name">
+                    <input type="text" v-model="user.lastName">
                   </td>
                 </tr>
                 <tr>
@@ -59,7 +59,7 @@ export default {
   methods: {
     updateUser() {
       this.$req
-        .put("/api/users/" + this.$route.params.id, this.user)
+        .put("/api/user/" + this.$route.params.id, this.user)
         .then(function() {
           alert("Zaktualizowano poprawnie");
         })

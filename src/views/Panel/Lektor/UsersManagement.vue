@@ -8,6 +8,7 @@
         <table table class="table table-striped table-hover table-bordered w-50 mx-auto">
           <thead>
             <th>email</th>
+            <th>id</th>
             <th>Imię</th>
             <th>Nazwisko</th>
             <th>nazwa użytkownika</th>
@@ -16,6 +17,7 @@
           <tbody>
             <tr v-for="(user,userId) in users" :key="userId">
               <td>{{user.email}}</td>
+              <td>{{user.id}}</td>
               <td>{{user.firstName}}</td>
               <td>{{user.lastName}}</td>
               <td>{{user.username}}</td>
@@ -43,9 +45,9 @@ export default {
   },
   methods: {
     deleteUser(userId) {
-      if (confirm("Czy na pewno usunąć użytkownika?")) {
+      if (confirm("Czy na pewno usunąć użytkownika o id " + userId + "?")) {
         this.$req
-          .delete("/api/users/" + userId)
+          .delete("/api/user/" + userId)
           .then(function() {
             alert("użytkownik usunięty poprawnie");
           })
