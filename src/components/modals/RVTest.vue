@@ -83,7 +83,7 @@
                           <input
                             type="radio"
                             class="col-1 form-control"
-                            v-model="poprawneOdpowiedzi[questionIdx]"
+                            v-model="correctAnswers[questionIdx]"
                             :name="question + questionIdx"
                             :value="answerIdx"
                             :checked="poprawneOdpowiedzi[questionIdx]"
@@ -156,9 +156,9 @@ export default {
           }
         ]
       },
-      correctAnswers: [],
       allTags: [],
-      allTagsTmp: []
+      allTagsTmp: [],
+      correctAnswers: []
     };
   },
   methods: {
@@ -209,7 +209,7 @@ export default {
         question.answers.forEach(answer => {
           answer.correct = false;
         });
-        question.answers[this.poprawneOdpowiedzi[idx]].correct = true;
+        question.answers[this.correctAnswers[idx]].correct = true;
       });
       let fullTest = {
         questions: this.TestTmp.questions
@@ -234,7 +234,7 @@ export default {
     sendTest() {
       let fullTest = this.prepareJson();
       this.$req
-        .post("/api/ReadingVideoTest", fullTest)
+        .post("/api/readingVideoTest", fullTest)
         .then(function() {
           alert("Test wysłano poprawnie");
         })
@@ -248,7 +248,7 @@ export default {
     editTest() {
       let fullTest = this.prepareJson();
       this.$req
-        .put("/api/ReadingInsertTest/" + this.id, fullTest)
+        .put("/api/readingVideoTest/" + this.id, fullTest)
         .then(() => {
           alert("poprawna edycja testu");
         })
@@ -311,14 +311,20 @@ export default {
     },
     poprawneOdpowiedzi: function() {
       let correctAnswers = [];
-      this.TestTmp.questions.forEach((question, idx) => {
-        question.answers.forEach((answer, idx2) => {
-          if (answer.correct === true) {
-            correctAnswers[idx] = idx2;
-          }
+      if (this.id) {
+        this.TestTmp.questions.forEach((question, idx) => {
+          question.answers.forEach((answer, idx2) => {
+            if (answer.correct === true) {
+              correctAnswers[idx] = idx2;
+            }
+          });
         });
-      });
-      return correctAnswers;
+        this.correctAnswers = correctAnswers;
+        return correctAnswers;
+      } else {
+          this.correctAnswers = [];
+          return correctAnswers;
+      }
     }
   }
 };
