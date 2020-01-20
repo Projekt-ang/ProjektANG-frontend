@@ -12,7 +12,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 
 const req = axios.create({
-  baseURL: "http://localhost:8080/"
+	baseURL: "http://18.195.242.27:8080/"
 });
 Vue.prototype.$req = req;
 
@@ -23,7 +23,7 @@ Vue.use(VueModal);
 Vue.use(Vue2Editor);
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+	router,
+	store,
+	render: h => h(App)
 }).$mount("#app");
