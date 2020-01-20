@@ -2,7 +2,7 @@
   <div class="blankTest container">
     <div class="row" v-if="checked">
       <h1 class="col-12">Test ukończony</h1>
-      <h2>Twój wynik to: {{points + " / "+ maxPoints }}</h2>
+      <h2 class="col-12">Twój wynik to: {{points + " / "+ maxPoints }}</h2>
     </div>
     <div class="row">
       <div class="col-12">
