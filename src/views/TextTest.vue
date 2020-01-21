@@ -111,6 +111,7 @@ export default {
 
     findAnswer(answer) {
       let answerJson = answer.answer;
+
       for (var i in this.test.questions[answer.questionId].answers) {
         if (
           JSON.stringify(answerJson) ==
@@ -175,12 +176,6 @@ export default {
         this.test.author = response.data.body.author;
         this.test.name = response.data.body.name;
         this.test.tags = response.data.body.tags;
-
-        for (var i in this.test.questions) {
-          this.test.questions[i].answers = _.shuffle(
-            this.test.questions[i].answers
-          );
-        }
       })
       .finally(() => {
         this.glossary = this.$store.getters.glossary;
