@@ -59,6 +59,14 @@ export default {
   mounted() {
     this.$req.get("/glossaries").then(response => {
       this.words = response.data._embedded.glossaries;
+      for (var i in this.words) {
+        if (this.words[i].usageExamples.length == 0) {
+          console.log(this.words[i].usageExamples);
+          this.words[i].usageExamples.push({
+            sentence: ""
+          });
+        }
+      }
       console.log(this.words);
     });
   },
