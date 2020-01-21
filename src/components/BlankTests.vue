@@ -21,12 +21,14 @@
           <td class="align-middle">
             <button class="btn btn-danger m-1 btn-rounded" @click="modalDelete(test.id)">Usuń</button>
             <button class="btn btn-primary m-1" @click="modalEdit(test.id, test)">Edytuj</button>
+            <button class="btn btn-success m-1" @click="modalPodglad(test.id)">Podglad</button>
           </td>
         </tr>
       </tbody>
     </table>
     <BlankModal :id="idTmp"/>
     <confirmDeleteModal :id="idTmp" typ="blank"/>
+    <blankPodgladModal :id="idTmp" />
   </div>
 </template>
 
@@ -36,11 +38,13 @@ let $ = JQuery;
 
 import BlankModal from "@/components/modals/BlankTest";
 import confirmDeleteModal from "@/components/modals/ConfirmDelete";
+import blankPodgladModal from "@/components/modals/blankPodglad";
 export default {
   name: "BlankTests",
   components: {
     BlankModal,
-    confirmDeleteModal
+    confirmDeleteModal,
+    blankPodgladModal
   },
   data() {
     return {
@@ -59,6 +63,10 @@ export default {
     modalDelete: function(id) {
       this.idTmp = id;
       $("#confirmDelete").modal("toggle");
+    },
+    modalPodglad: function(id) {
+      this.idTmp = id;
+      $('#blankPodglad').modal("toggle");
     }
   },
   mounted() {},

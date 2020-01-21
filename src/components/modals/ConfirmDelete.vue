@@ -31,8 +31,9 @@ export default {
       if (this.typ === "blank") {
         this.$req
           .delete("/api/BlankInsertTest/" + id)
-          .then(function() {
+          .then(() => {
             alert("Test usunieto poprawnie");
+            this.$store.dispatch("loadBlankTests");
           })
           .catch(function(error) {
             console.log(error);
@@ -43,8 +44,9 @@ export default {
       } else if (this.typ === "readingvideo") {
         this.$req
           .delete("/api/readingVideoTest/" + id)
-          .then(function() {
+          .then(() => {
             alert("Test usunieto poprawnie");
+            this.$store.dispatch("loadRVTests");
           })
           .catch(function(error) {
             console.log(error);

@@ -182,6 +182,7 @@ export default {
         .post("/api/BlankInsertTest", fullTest)
         .then(() => {
           alert("poprawne wysłanie testu");
+          this.$store.dispatch("loadBlankTests");
         })
         .catch(() => {
           alert("Wystąpił błąd");
@@ -194,6 +195,7 @@ export default {
         .put("/api/BlankInsertTest/" + this.id, fullTest)
         .then(() => {
           alert("poprawna edycja testu");
+          this.$store.dispatch("loadBlankTests");
         })
         .catch(() => {
           alert("Wystąpił błąd");

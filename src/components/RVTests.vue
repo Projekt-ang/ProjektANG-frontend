@@ -21,12 +21,14 @@
           <td class="align-middle">
             <button class="btn btn-danger m-1 btn-rounded" @click="modalDelete(test.id)">Usuń</button>
             <button class="btn btn-primary m-1" @click="modalEdit(test.id, test)">Edytuj</button>
+            <button class="btn btn-success m-1" @click="modalPodglad(test.id)">Podglad</button>
           </td>
         </tr>
       </tbody>
     </table>
     <RVTestModal :id="idTmp"/>
     <confirmDeleteModal :id="idTmp" typ="readingvideo"/>
+    <RVPodgladModal :id="idTmp"/>
   </div>
 </template>
 
@@ -36,11 +38,13 @@ let $ = JQuery;
 
 import RVTestModal from "@/components/modals/RVTest";
 import confirmDeleteModal from "@/components/modals/ConfirmDelete";
+import RVPodgladModal from "@/components/modals/RVTestPodglad";
 export default {
   name: "ReadingVideoTests",
   components: {
     RVTestModal,
-    confirmDeleteModal
+    confirmDeleteModal,
+    RVPodgladModal
   },
   data() {
     return {
@@ -59,6 +63,10 @@ export default {
     modalDelete: function(id) {
       this.idTmp = id;
       $("#confirmDelete").modal("toggle");
+    },
+    modalPodglad: function(id) {
+      this.idTmp = id;
+      $("#testPodglad").modal("toggle");
     }
   },
   mounted() {},

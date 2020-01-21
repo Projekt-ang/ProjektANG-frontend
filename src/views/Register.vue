@@ -73,14 +73,14 @@ export default {
         email: "",
         username: "",
         password: "",
-        roles: []
+        role: []
       },
       chosenRole: ""
     };
   },
   methods: {
     register() {
-      this.user.roles.push(this.chosenRole);
+      this.user.role.push(this.chosenRole);
       console.log(this.user);
       this.$req
         .post("/api/register", this.user)

@@ -3,11 +3,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import store from "./store";
 import Home from "./views/Home.vue";
-import About from "./views/About.vue";
 import TextTest from "./views/TextTest.vue";
-import CreateReadingVideoTest from "./views/CreateReadingVideoTest.vue";
-import EditReadingVideoTest from "./views/EditReadingVideoTest.vue";
-import CreateBlankTest from "./views/CreateBlankTest.vue";
 import CreateGlossaryDefinition from "./views/CreateGlossaryDefinition.vue";
 import ReadGlossary from "./views/ReadGlossary.vue";
 import EditGlossary from "./views/EditGlossary.vue";
@@ -47,44 +43,33 @@ let router = new Router({
 			component: Home
 		},
 		{
-			path: "/about",
-			name: "about",
-			component: About
-		},
-		{
 			path: "/reading-video-test/:id",
 			name: "test",
 			component: TextTest
 		},
 		{
-			path: "/create-reading-video-test",
-			name: " CreateReadingVideoTest",
-			component: CreateReadingVideoTest
-		},
-		{
-			path: "/edit-reading-video-test/:id",
-			name: "EditReadingVideoTest",
-			component: EditReadingVideoTest
-		},
-		{
-			path: "/create-blank-test",
-			name: "CreateBlankTest",
-			component: CreateBlankTest
-		},
-		{
 			path: "/create-glossary-definition",
 			name: "CreateGlossaryDefinition",
-			component: CreateGlossaryDefinition
+      component: CreateGlossaryDefinition,
+      meta: {
+        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+      }
 		},
 		{
 			path: "/read-glossary",
 			name: "ReadGlossary",
-			component: ReadGlossary
+      component: ReadGlossary,
+      meta: {
+        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+      }
 		},
 		{
 			path: "/edit-glossary/:id",
 			name: "EditGlossary",
-			component: EditGlossary
+      component: EditGlossary,
+      meta: {
+        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+      }
 		},
 		{
 			path: "/add-email",
@@ -99,43 +84,66 @@ let router = new Router({
 		{
 			path: "/panel/lektor/users",
 			name: "Users",
-			component: LektorUsers
+      component: LektorUsers,
+      meta: {
+        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+      }
 		},
 		{
 			path: "/panel/lektor/content-management",
 			name: "ContentManagement",
-			component: LektorContentManagement
+      component: LektorContentManagement,
+      meta: {
+        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+      }
 		},
 		{
-			path:
-				"/panel/lektor/users/users-management",
+			path: "/panel/lektor/users/users-management",
 			name: "UsersManagement",
-			component: UsersManagement
+      component: UsersManagement,
+      meta: {
+        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+      }
 		},
 		{
 			path: "/mass-register",
 			name: "MassRegister",
-			component: MassRegister
+      component: MassRegister,
+      meta: {
+        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+      }
 		},
 		{
 			path: "/crud/tests",
 			name: "TestsCrud",
-			component: TestsManagement
+      component: TestsManagement,
+      meta: {
+        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+      }
 		},
 		{
 			path: "/crud/glossary",
 			name: "Glossary",
-			component: GlossaryManagement
+      component: GlossaryManagement,
+      meta: {
+        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+      }
 		},
 		{
 			path: "/crud/tests/blank",
 			name: "BlankCrud",
-			component: BlankCRUD
+      component: BlankCRUD,
+      meta: {
+        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+      }
 		},
 		{
 			path: "/crud/tests/reading-video",
 			name: "ReadingVideoCrud",
-			component: RVCrud
+      component: RVCrud,
+      meta: {
+        authorize: ["ROLE_LEKTOR", "ROLE_ADMIN"]
+      }
 		},
 		{
 			path: "/tests",
@@ -145,7 +153,10 @@ let router = new Router({
 		{
 			path: "/edit-user/:id",
 			name: "EditUser",
-			component: EditUser
+      component: EditUser,
+      meta: {
+        authorize: ["ROLE_ADMIN"]
+      }
 		},
 		{
 			path: "/settings",
@@ -190,7 +201,10 @@ let router = new Router({
 		{
 			path: "/register",
 			name: "Register",
-			component: Register
+      component: Register,
+      meta: {
+        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+      }
     },
     {
       path: "/tests/blank-tests",
@@ -200,7 +214,7 @@ let router = new Router({
     {
       path: "/tests/reading-video-tests",
       name: "ListaRVT",
-      component: ListaRVT
+      component: ListaRVT,
     }
 	]
 });

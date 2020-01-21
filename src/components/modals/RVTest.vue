@@ -245,8 +245,9 @@ export default {
       let fullTest = this.prepareJson();
       this.$req
         .post("/api/readingVideoTest", fullTest)
-        .then(function() {
+        .then(() => {
           alert("Test wysłano poprawnie");
+          this.$store.dispatch("loadRVTests");
         })
         .catch(function(error) {
           console.log(error);
@@ -261,6 +262,7 @@ export default {
         .put("/api/readingVideoTest/" + this.id, fullTest)
         .then(() => {
           alert("poprawna edycja testu");
+          this.$store.dispatch("loadRVTests");
         })
         .catch(() => {
           alert("Wystąpił błąd");
