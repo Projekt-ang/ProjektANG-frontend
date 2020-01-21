@@ -6,6 +6,10 @@
       <input required v-model="username" type="text" placeholder="Username">
       <label>Hasło</label>
       <input required v-model="password" type="password" placeholder="Password">
+      <div class="m-3">
+        <button type="submit">Login</button>
+      </div>
+      <hr>
       <div class="row">
         <div class="col-12">
           <router-link :to="'/forgotten-password'">
@@ -13,8 +17,6 @@
           </router-link>
         </div>
       </div>
-      <hr>
-      <button type="submit">Login</button>
     </form>
   </div>
 </template>
