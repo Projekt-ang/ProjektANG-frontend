@@ -17,6 +17,13 @@
             </button>
           </router-link>
         </div>
+        <div class="col-sm">
+          <router-link :to="'panel/lektor/group-management'">
+            <button class="btn btn-sq-lg btn-danger">
+              <h2>Zarządzanie grupami</h2>
+            </button>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>

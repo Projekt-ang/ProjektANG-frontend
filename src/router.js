@@ -30,6 +30,8 @@ import BlankTest from "./views/BlankTest.vue";
 import Register from "./views/Register.vue";
 import ListaBlanks from "./views/Panel/User/ListaBlanks.vue";
 import ListaRVT from "./views/Panel/User/ListaRVT.vue";
+import GroupManagement from "./views/Panel/Lektor/GroupManagement.vue";
+import Group from "./views/Panel/Lektor/group.vue";
 
 Vue.use(Router);
 
@@ -50,26 +52,26 @@ let router = new Router({
 		{
 			path: "/create-glossary-definition",
 			name: "CreateGlossaryDefinition",
-      component: CreateGlossaryDefinition,
-      meta: {
-        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
-      }
+			component: CreateGlossaryDefinition,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/read-glossary",
 			name: "ReadGlossary",
-      component: ReadGlossary,
-      meta: {
-        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
-      }
+			component: ReadGlossary,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/edit-glossary/:id",
 			name: "EditGlossary",
-      component: EditGlossary,
-      meta: {
-        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
-      }
+			component: EditGlossary,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/add-email",
@@ -84,66 +86,67 @@ let router = new Router({
 		{
 			path: "/panel/lektor/users",
 			name: "Users",
-      component: LektorUsers,
-      meta: {
-        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
-      }
+			component: LektorUsers,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/panel/lektor/content-management",
 			name: "ContentManagement",
-      component: LektorContentManagement,
-      meta: {
-        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
-      }
+			component: LektorContentManagement,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
-			path: "/panel/lektor/users/users-management",
+			path:
+				"/panel/lektor/users/users-management",
 			name: "UsersManagement",
-      component: UsersManagement,
-      meta: {
-        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
-      }
+			component: UsersManagement,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/mass-register",
 			name: "MassRegister",
-      component: MassRegister,
-      meta: {
-        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
-      }
+			component: MassRegister,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/crud/tests",
 			name: "TestsCrud",
-      component: TestsManagement,
-      meta: {
-        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
-      }
+			component: TestsManagement,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/crud/glossary",
 			name: "Glossary",
-      component: GlossaryManagement,
-      meta: {
-        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
-      }
+			component: GlossaryManagement,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/crud/tests/blank",
 			name: "BlankCrud",
-      component: BlankCRUD,
-      meta: {
-        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
-      }
+			component: BlankCRUD,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/crud/tests/reading-video",
 			name: "ReadingVideoCrud",
-      component: RVCrud,
-      meta: {
-        authorize: ["ROLE_LEKTOR", "ROLE_ADMIN"]
-      }
+			component: RVCrud,
+			meta: {
+				authorize: ["ROLE_LEKTOR", "ROLE_ADMIN"]
+			}
 		},
 		{
 			path: "/tests",
@@ -153,10 +156,10 @@ let router = new Router({
 		{
 			path: "/edit-user/:id",
 			name: "EditUser",
-      component: EditUser,
-      meta: {
-        authorize: ["ROLE_ADMIN"]
-      }
+			component: EditUser,
+			meta: {
+				authorize: ["ROLE_ADMIN"]
+			}
 		},
 		{
 			path: "/settings",
@@ -201,21 +204,37 @@ let router = new Router({
 		{
 			path: "/register",
 			name: "Register",
-      component: Register,
-      meta: {
-        authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
-      }
-    },
-    {
-      path: "/tests/blank-tests",
-      name: "ListaBlanks",
-      component: ListaBlanks
-    },
-    {
-      path: "/tests/reading-video-tests",
-      name: "ListaRVT",
-      component: ListaRVT,
-    }
+			component: Register,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
+		},
+		{
+			path: "/tests/blank-tests",
+			name: "ListaBlanks",
+			component: ListaBlanks
+		},
+		{
+			path: "/tests/reading-video-tests",
+			name: "ListaRVT",
+			component: ListaRVT
+		},
+		{
+			path: "/panel/lektor/group-management",
+			name: "GroupManagement",
+			component: GroupManagement,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
+		},
+		{
+			path: "/panel/lektor/group/:id",
+			name: "Group",
+			component: Group,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
+		}
 	]
 });
 
