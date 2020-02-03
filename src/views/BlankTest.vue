@@ -107,12 +107,12 @@ export default {
     sendTest() {
       let testJson = {};
       testJson.userId = this.user.id;
-      testJson.testId = this.$route.params.id;
-      testJson.answers = [];
+      testJson.testId = parseInt(this.$route.params.id);
+      testJson.answerIds = [];
       for (var i in this.answers) {
-        testJson.answers.push(this.findAnswer(this.answers[i]));
+        testJson.answerIds.push(parseInt(this.findAnswer(this.answers[i])));
       }
-
+      console.log(testJson);
       this.$req
         .post("/api/check-answers", testJson)
         .then(function() {

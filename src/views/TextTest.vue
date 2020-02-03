@@ -100,11 +100,11 @@ export default {
     checkAnswers() {
       let answersJson = {};
       answersJson.userId = this.user.id;
-      answersJson.testId = this.$route.params.id;
-      answersJson.answers = [];
+      answersJson.testId = parseInt(this.$route.params.id);
+      answersJson.answerIds = [];
 
       for (var i in this.answers) {
-        answersJson.answers.push(this.findAnswer(this.answers[i]));
+        answersJson.answerIds.push(parseInt(this.findAnswer(this.answers[i])));
       }
       this.sendTest(answersJson);
     },
@@ -220,9 +220,6 @@ export default {
 <style>
 li {
   list-style-type: none;
-}
-input[type="radio"] {
-  transform: scale(0.5);
 }
 
 .glossarySpan {

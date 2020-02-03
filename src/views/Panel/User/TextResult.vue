@@ -19,9 +19,15 @@
           <tbody>
             <tr v-for="(question,
 							questionId) in test.questions" :key="questionId">
-              <td>{{question.question}}</td>
-              <td>{{question.answers[testAnswers.answers[questionId]].answer}}</td>
-              <td>{{correct[questionId]}}</td>
+              <td
+                v-bind:class="{ 'colored-answer': isCorrect(correct[questionId],question.answers[testAnswers.answerIds[questionId]].answer)}"
+              >{{question.question}}</td>
+              <td
+                v-bind:class="{ 'colored-answer': isCorrect(correct[questionId],question.answers[testAnswers.answerIds[questionId]].answer)}"
+              >{{question.answers[testAnswers.answerIds[questionId]].answer}}</td>
+              <td
+                v-bind:class="{ 'colored-answer': isCorrect(correct[questionId],question.answers[testAnswers.answerIds[questionId]].answer)}"
+              >{{correct[questionId]}}</td>
             </tr>
           </tbody>
         </table>
@@ -49,11 +55,16 @@ export default {
       for (var i = 0; i < this.maxPoints; i++) {
         if (
           this.correct[i] ==
-          this.test.questions[i].answers[this.testAnswers.answers[i]].answer
+          this.test.questions[i].answers[this.testAnswers.answerIds[i]].answer
         ) {
           this.points++;
         }
       }
+    },
+
+    isCorrect(correct, selected) {
+      if (correct.toString() === selected.toString()) return true;
+      else return false;
     },
 
     correctAnswer() {
@@ -68,6 +79,7 @@ export default {
   },
   mounted() {
     this.testAnswers = JSON.parse(localStorage.currentText);
+    console.log(this.testAnswers);
     this.testId = localStorage.currentTestId;
     this.$req.get("/api/readingVideoTest/" + this.testId).then(response => {
       this.test.id = response.data.body.id;
@@ -83,3 +95,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.colored-answer {
+  background-color: lawngreen;
+}
+</style>

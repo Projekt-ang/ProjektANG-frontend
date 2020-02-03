@@ -36,7 +36,7 @@
             <th>Akcja</th>
           </thead>
           <tbody>
-            <tr v-for="(user,userId) in groupUsers" :key="userId">
+            <tr v-for="(user,userId) in roleUsers" :key="userId">
               <td>{{user.firstName}}</td>
               <td>{{user.lastName}}</td>
               <td>
@@ -66,22 +66,8 @@ export default {
     };
   },
   methods: {
-    addToGroup(addedUser) {
-      console.log(addedUser);
-      for (var i in this.groupUsers) {
-        if (this.groupUsers[i].username == addedUser.username) {
-          return 0;
-        }
-      }
-      this.groupUsers.push(addedUser);
-    },
-    removeFromGroup(removedUser) {
-      for (var i in this.groupUsers) {
-        if (this.groupUsers[i].username == removedUser.username) {
-          this.groupUsers.splice(i, 1);
-        }
-      }
-    },
+    addToGroup(addedUser) {},
+    removeFromGroup(removedUser) {},
 
     saveGroup() {}
   },
@@ -92,7 +78,21 @@ export default {
 
     this.$req.get("/users").then(response => {
       this.users = response.data._embedded.users;
+      console.log(this.users);
     });
+  },
+  computed: {
+    roleUsers: function() {
+      let list = [];
+      for (var i in this.users) {
+        for (var j in this.users[i].roles) {
+          if (this.users[i].roles[j].name == this.group.name) {
+            list.push(this.users[i]);
+          }
+        }
+      }
+      return list;
+    }
   }
 };
 </script>
