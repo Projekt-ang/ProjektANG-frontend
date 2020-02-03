@@ -17,7 +17,7 @@
             <th>Akcja</th>
           </thead>
           <tbody>
-            <tr v-for="(user,userId) in users" :key="userId">
+            <tr v-for="(user,userId) in notInGroup" :key="userId">
               <td>{{user.firstName}}</td>
               <td>{{user.lastName}}</td>
               <td>
@@ -89,6 +89,17 @@ export default {
           if (this.users[i].roles[j].name == this.group.name) {
             list.push(this.users[i]);
           }
+        }
+      }
+      return list;
+    },
+
+    notInGroup: function() {
+      let list = [];
+      for (var i in this.users) {
+        for (var j in this.users[i].roles) {
+          if (this.users[i].roles[j].name == this.group.name) {
+          } else list.push(this.users[i]);
         }
       }
       return list;

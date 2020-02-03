@@ -59,7 +59,7 @@ export default {
       };
 
       this.$req
-        .post("/api/roles", createdJSON)
+        .post("/roles", createdJSON)
         .then(function() {
           alert("Poprawne dodanie grupy");
         })
