@@ -10,10 +10,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(test, idx) in this.$store.state.blankTests" :key="idx">
+        <tr v-for="(test, idx) in this.doRozwiazania" :key="idx">
           <td class="align-middle">
             <router-link :to="'/blank-test/'+test.id">
-              <p>{{test.name}}</p>
+              {{test.name}}
             </router-link>
           </td>
           <td class="align-middle">{{test.author}}</td>
@@ -33,11 +33,45 @@ export default {
 
   data() {
     return {
-      idTmp: undefined
+      idTmp: undefined,
+      results: undefined
     };
   },
   methods: {},
-  mounted() {},
-  computed: {}
+  mounted() {
+    this.$req
+      .get("/api/get-user-results/" + this.user.id)
+      .then( response => {
+        this.results = response.data
+      });
+  },
+  computed: {
+    user: function() {
+      return this.$store.getters.getUser;
+    },
+    doRozwiazania: function() {
+      let lista_testow  = [];
+      let wszystkie_testy = this.$store.state.blankTests;
+
+      wszystkie_testy.forEach((test, idx) => {
+        if (this.results){
+          //czy test bedzie widoczny dla uzytkownika
+          let test_flag = true;
+          this.results.forEach((result, idx) => {
+            if (result.blankInsertTest){
+              if (test.id === result.blankInsertTest.id){
+                //jak jest w wynikach to nie jest widoczny
+                test_flag = false;
+              }
+            }
+          })
+          if (test_flag){
+            lista_testow.push(test);
+          }
+        }
+      })
+      return lista_testow;
+    }
+  }
 };
 </script>

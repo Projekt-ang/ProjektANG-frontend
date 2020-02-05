@@ -9,7 +9,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(test, idx) in this.$store.state.readingVideoTests" :key="idx">
+        <tr v-for="(test, idx) in this.doRozwiazania" :key="idx">
           <td class="align-middle">
             <router-link :to="'/reading-video-test/' + test.id">
               {{test.name}}
@@ -27,15 +27,51 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "ListaRVT",
   data() {
     return {
-      idTmp: undefined
+      idTmp: undefined,
+      results: undefined
     };
   },
   methods: {},
-  mounted() {},
-  computed: {}
+  mounted() {
+    this.$req
+      .get("/api/get-user-results/" + this.user.id)
+      .then( response => {
+        this.results = response.data
+      });
+  },
+  computed: {
+    user: function() {
+      return this.$store.getters.getUser;
+    },
+    doRozwiazania: function() {
+      let lista_testow  = [];
+      let wszystkie_testy = this.$store.state.readingVideoTests;
+
+      wszystkie_testy.forEach((test, idx) => {
+        if (this.results){
+          //czy test bedzie widoczny dla uzytkownika
+          let test_flag = true;
+          this.results.forEach((result, idx) => {
+            if (result.readingVideoTest){
+              if (test.id === result.readingVideoTest.id){
+                //jak jest w wynikach to nie
+                test_flag = false;
+              }
+            }
+          })
+          if (test_flag){
+            lista_testow.push(test);
+          }
+        }
+      })
+      return lista_testow;
+    }
+  }
 };
 </script>

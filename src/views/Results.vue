@@ -36,7 +36,7 @@ export default {
   methods: {},
   mounted() {
     this.$req.get("/api/get-user-results/" + this.user.id).then(response => {
-      this.results = response.data._embedded;
+      this.results = response.data;
       console.log(this.results);
 
       for (var i in this.results) {
