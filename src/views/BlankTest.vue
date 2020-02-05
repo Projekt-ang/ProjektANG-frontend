@@ -107,7 +107,7 @@ export default {
     sendTest() {
       let testJson = {};
       testJson.userId = this.user.id;
-      testJson.testId = parseInt(this.$route.params.id);
+      testJson.blankTestId = parseInt(this.$route.params.id);
       testJson.answerIds = [];
       for (var i in this.answers) {
         testJson.answerIds.push(parseInt(this.findAnswer(this.answers[i])));
