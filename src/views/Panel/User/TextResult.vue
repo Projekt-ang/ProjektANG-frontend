@@ -17,17 +17,16 @@
             <th>Poprawna odpowiedź</th>
           </thead>
           <tbody>
-            <tr v-for="(question,
-							questionId) in test.questions" :key="questionId">
+            <tr v-for="(question,questionId) in test.questions" :key="questionId">
               <td
-                v-bind:class="{ 'colored-answer': isCorrect(correct[questionId],question.answers[testAnswers.answerIds[questionId]].answer)}"
+                v-bind:class="{'colored-answer': coloringAnswer(correctAnswers[questionId],userAnswers[questionId])}"
               >{{question.question}}</td>
               <td
-                v-bind:class="{ 'colored-answer': isCorrect(correct[questionId],question.answers[testAnswers.answerIds[questionId]].answer)}"
-              >{{question.answers[testAnswers.answerIds[questionId]].answer}}</td>
+                v-bind:class="{'colored-answer': coloringAnswer(correctAnswers[questionId],userAnswers[questionId])}"
+              >{{correctAnswers[questionId]}}</td>
               <td
-                v-bind:class="{ 'colored-answer': isCorrect(correct[questionId],question.answers[testAnswers.answerIds[questionId]].answer)}"
-              >{{correct[questionId]}}</td>
+                v-bind:class="{'colored-answer': coloringAnswer(correctAnswers[questionId],userAnswers[questionId])}"
+              >{{userAnswers[questionId]}}</td>
             </tr>
           </tbody>
         </table>
@@ -36,42 +35,50 @@
   </div>
 </template>
 
+
 <script>
 export default {
-  name: "TextResult",
+  name: "Texttest",
   data() {
     return {
-      testAnswers: undefined,
-      testId: undefined,
-      test: {},
-      correct: [],
       points: 0,
-      maxPoints: 0
+      maxPoints: 0,
+      test: {},
+      userAnswers: [],
+      correctAnswers: [],
+      testAnswers: {}
     };
   },
   methods: {
-    calculatePoints() {
-      this.maxPoints = this.test.questions.length;
-      for (var i = 0; i < this.maxPoints; i++) {
-        if (
-          this.correct[i] ==
-          this.test.questions[i].answers[this.testAnswers.answerIds[i]].answer
-        ) {
-          this.points++;
-        }
-      }
-    },
-
-    isCorrect(correct, selected) {
-      if (correct.toString() === selected.toString()) return true;
-      else return false;
-    },
-
     correctAnswer() {
       for (var i in this.test.questions) {
         for (var j in this.test.questions[i].answers) {
-          if (this.test.questions[i].answers[j].correct) {
-            this.correct.push(this.test.questions[i].answers[j].answer);
+          if (this.test.questions[i].answers[j].correct == true) {
+            this.correctAnswers.push(this.test.questions[i].answers[j].answer);
+          }
+        }
+      }
+    },
+    coloringAnswer(correct, user) {
+      if (correct == user) return true;
+      else return false;
+    },
+    calculatePoints() {
+      for (var i in this.userAnswers) {
+        if (this.userAnswers[i] == this.correctAnswers[i]) {
+          this.points++;
+        }
+      }
+      this.maxPoints = this.userAnswers.length;
+    },
+    userAnswersList() {
+      for (var i in this.test.questions) {
+        for (var j in this.test.questions[i].answers) {
+          if (
+            this.test.questions[i].answers[j].id ==
+            this.testAnswers.answerIds[i]
+          ) {
+            this.userAnswers.push(this.test.questions[i].answers[j].answer);
           }
         }
       }
@@ -88,8 +95,8 @@ export default {
       this.test.author = response.data.body.author;
       this.test.name = response.data.body.name;
       this.test.tags = response.data.body.tags;
-
       this.correctAnswer();
+      this.userAnswersList();
       this.calculatePoints();
     });
   }

@@ -117,7 +117,7 @@ export default {
           JSON.stringify(answerJson) ==
           JSON.stringify(this.test.questions[answer.questionId].answers[i])
         ) {
-          return i;
+          return this.test.questions[answer.questionId].answers[i].id;
         }
       }
     },

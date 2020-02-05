@@ -152,7 +152,7 @@ export default {
       for (var i in this.test.blankSymbols) {
         for (var j in this.test.blankSymbols[i].answers) {
           if (this.test.blankSymbols[i].answers[j].answer == answer) {
-            return j;
+            return this.test.blankSymbols[i].answers[j].id;
           }
         }
       }
