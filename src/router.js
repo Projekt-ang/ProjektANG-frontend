@@ -47,9 +47,6 @@ let router = new Router({
 			path: "/",
 			name: "home",
       component: Home,
-      meta: {
-				authorize: ["ROLE_USER","ROLE_ADMIN", "ROLE_LEKTOR"]
-			}
 		},
 		{
 			path: "/reading-video-test/:id",

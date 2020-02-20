@@ -270,7 +270,7 @@ export default {
         }
       });
 
-      fullTest.roles = answerArray;
+      //fullTest.roles = answerArray;
       console.log(fullTest)
       return fullTest;
     },

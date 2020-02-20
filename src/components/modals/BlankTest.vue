@@ -206,7 +206,7 @@ export default {
           answerArray.push(selectValue);
         }
       });
-      blankTest.roles = answerArray;
+      //blankTest.roles = answerArray;
       console.log(blankTest);
       let regex = /\{.*?\}/g;
       let match = this.blankTmp.text.match(regex);

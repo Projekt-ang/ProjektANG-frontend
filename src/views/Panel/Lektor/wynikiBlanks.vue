@@ -2,10 +2,10 @@
   <div class="container">
     <div class="col-12">
       <div class="row">
-        <h1 class="m-2 col-12">Wyniki</h1>
+        <h1 class="m-2 col-sm">Wyniki</h1>
       </div>
       <div class="col-12">
-        <div class="m-5 col-12">
+        <div class="m-5 col-11">
           <h2>Grupa:</h2>
           <div class="col-sm">
             <div align="center">
