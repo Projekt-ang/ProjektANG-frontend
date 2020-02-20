@@ -32,6 +32,10 @@ import ListaBlanks from "./views/Panel/User/ListaBlanks.vue";
 import ListaRVT from "./views/Panel/User/ListaRVT.vue";
 import GroupManagement from "./views/Panel/Lektor/GroupManagement.vue";
 import Group from "./views/Panel/Lektor/group.vue";
+import WynikiBlanks from "./views/Panel/Lektor/wynikiBlanks.vue";
+import WynikiRVT from "./views/Panel/Lektor/wynikiRVT.vue";
+import shareRVT from "./views/Panel/Lektor/shareRVT.vue";
+import shareBlankTest from "./views/Panel/Lektor/shareBlankTest.vue";
 
 Vue.use(Router);
 
@@ -42,12 +46,18 @@ let router = new Router({
 		{
 			path: "/",
 			name: "home",
-			component: Home
+      component: Home,
+      meta: {
+				authorize: ["ROLE_USER","ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/reading-video-test/:id",
 			name: "test",
-			component: TextTest
+      component: TextTest,
+      meta: {
+				authorize: ["ROLE_USER"]
+			}
 		},
 		{
 			path: "/create-glossary-definition",
@@ -76,7 +86,10 @@ let router = new Router({
 		{
 			path: "/add-email",
 			name: "EmailVerification",
-			component: EmailVerification
+      component: EmailVerification,
+      meta: {
+				authorize: ["ROLE_UNCONFIRMED","ROLE_USER","ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/verify/:token",
@@ -151,7 +164,10 @@ let router = new Router({
 		{
 			path: "/tests",
 			name: "Tests",
-			component: Testy
+      component: Testy,
+      meta: {
+				authorize: ["ROLE_USER"]
+			}
 		},
 		{
 			path: "/edit-user/:id",
@@ -164,22 +180,34 @@ let router = new Router({
 		{
 			path: "/settings",
 			name: "Settings",
-			component: Settings
+      component: Settings,
+      meta: {
+				authorize: ["ROLE_USER", "ROLE_LEKTOR","ROLE_ADMIN"]
+			}
 		},
 		{
 			path: "/results",
 			name: "Results",
-			component: Results
+      component: Results,
+      meta: {
+				authorize: ["ROLE_USER"]
+			}
 		},
 		{
 			path: "/edit-password",
 			name: "EditPassword",
-			component: EditPassword
+      component: EditPassword,
+      meta: {
+				authorize: ["ROLE_UNCONFIRMED","ROLE_USER","ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/edit-mail",
 			name: "EditMail",
-			component: EditMail
+      component: EditMail,
+      meta: {
+				authorize: ["ROLE_UNCONFIRMED","ROLE_USER","ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
 		},
 		{
 			path: "/password-reset/:token",
@@ -194,12 +222,18 @@ let router = new Router({
 		{
 			path: "/text-result",
 			name: "TextResult",
-			component: TextResult
+      component: TextResult,
+      meta: {
+				authorize: ["ROLE_USER"]
+			}
 		},
 		{
 			path: "/blank-test/:id",
 			name: "BlankTest",
-			component: BlankTest
+      component: BlankTest,
+      meta: {
+				authorize: ["ROLE_USER"]
+			}
 		},
 		{
 			path: "/register",
@@ -212,12 +246,18 @@ let router = new Router({
 		{
 			path: "/tests/blank-tests",
 			name: "ListaBlanks",
-			component: ListaBlanks
+      component: ListaBlanks,
+      meta: {
+				authorize: ["ROLE_USER"]
+			}
 		},
 		{
 			path: "/tests/reading-video-tests",
 			name: "ListaRVT",
-			component: ListaRVT
+      component: ListaRVT,
+      meta: {
+				authorize: ["ROLE_USER"]
+			}
 		},
 		{
 			path: "/panel/lektor/group-management",
@@ -231,6 +271,38 @@ let router = new Router({
 			path: "/panel/lektor/group/:id",
 			name: "Group",
 			component: Group,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
+    },
+    {
+			path: "/crud/tests/blank/wyniki/:id",
+			name: "wynikiBlanks",
+			component: WynikiBlanks,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
+    },
+    {
+			path: "/crud/tests/reading-video/wyniki/:id",
+			name: "wynikiRVT",
+			component: WynikiRVT,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
+    },
+    {
+			path: "/crud/tests/reading-video/share/:id",
+			name: "shareRVT",
+			component: shareRVT,
+			meta: {
+				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
+			}
+    },
+    {
+			path: "/crud/tests/blank/share/:id",
+			name: "shareBlankTest",
+			component: shareBlankTest,
 			meta: {
 				authorize: ["ROLE_ADMIN", "ROLE_LEKTOR"]
 			}

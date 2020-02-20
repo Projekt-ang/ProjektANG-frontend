@@ -17,7 +17,9 @@ export default new Vuex.Store({
 		blankTests: [],
 		tags: [],
 		readingVideoTests: [],
-		glossary: []
+    glossary: [],
+    roles: [],
+    results: []
 	},
 	mutations: {
 		auth_request(state) {
@@ -46,7 +48,13 @@ export default new Vuex.Store({
 		},
 		setGlossary(state, glosariusz) {
 			state.glossary = glosariusz;
-		}
+    },
+    setRoles(state, grupy){
+      state.roles = grupy;
+    },
+    setResults(state, wyniki){
+      state.results = wyniki;
+    }
 	},
 	actions: {
 		login({ commit }, user) {
@@ -152,13 +160,37 @@ export default new Vuex.Store({
 						response.data._embedded.glossaries
 					);
 				});
-		}
+    },
+    loadRoles({ commit }) {
+      axios
+        .get("http://18.195.242.27:8080/roles"
+        )
+        .then(response => {
+          commit(
+            "setRoles",
+            response.data._embedded.roles
+          );
+        });
+    },
+    loadResults({ commit }) {
+      axios
+        .get("http://18.195.242.27:8080/results"
+        )
+        .then(response => {
+          commit(
+            "setResults",
+            response.data._embedded.results
+          );
+        });
+    }
 	},
 	getters: {
 		isLoggedIn: state => !!state.token,
 		authStatus: state => state.authStatus,
 		tags: state => state.tags,
-		glossary: state => state.glossary,
+    glossary: state => state.glossary,
+    roles: state => state.roles,
+    results: state => state.results,
 		getBlankById: state => id =>
 			state.blankTests.find(
 				blank => blank.id === id

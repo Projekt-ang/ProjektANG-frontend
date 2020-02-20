@@ -28,7 +28,6 @@
                       placeholder="Autor"
                       required
                     >
-                    <div class="col-1"/>
                   </div>
 
                   <div class="row">
@@ -54,8 +53,33 @@
                       class="btn btn-primary mb-2 form-control"
                     >Dodaj tag</button>
                   </div>
+                  
+                  <div class="m-1 col-sm">
+                    <h3>Grupy</h3>
+                    <div class="m-3 row">
+                      <div class="col-5" v-for="(ilosc, idx) in liczba_grup" :key="idx">
+                        <select name="sub_type" class="form-control">
+                          <option v-for="(value, key) in getGroups" :value='value.id' :key='key'>
+                              {{value.name}}
+                          </option>
+                        </select>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-primary form-control col-1"
+                        title="Dodaj nową grupę"
+                        @click="addGroup()"
+                      >Dodaj</button>
+                        <button
+                          type="button"
+                          class="btn btn-danger form-control col-1"
+                          title="Usuń jedną grupę"
+                          @click="deleteGroup()"
+                        >X</button>
+                    </div>
+                  </div>
 
-                  <vue-editor v-model="TestTmp.text" required/>
+                  <vue-editor class="m-2" v-model="TestTmp.text" required/>
                   <h3 class="m-4">Pytania:</h3>
                   <div class="row">
                     <div
@@ -165,11 +189,13 @@ export default {
               }
             ]
           }
-        ]
+        ],
+        roles: []
       },
       allTags: [],
       allTagsTmp: [],
-      correctAnswers: []
+      correctAnswers: [],
+      liczba_grup: 1,
     };
   },
   methods: {
@@ -178,6 +204,12 @@ export default {
         answer: "",
         correct: false
       });
+    },
+    addGroup(){
+      this.liczba_grup += 1;
+    },
+    deleteGroup(){
+      this.liczba_grup -= 1;
     },
     addQuestion() {
       this.TestTmp.questions.push({
@@ -193,7 +225,6 @@ export default {
     beginsWith(tagName) {
       return tagName.startsWith(this.TestTmp.inputTag);
     },
-
     newTag() {
       if (this.TestTmp.inputTag == "") return false;
 
@@ -230,6 +261,17 @@ export default {
       fullTest.name = this.TestTmp.name;
       fullTest.author = this.TestTmp.author;
       fullTest.tags = this.TestTmp.tags;
+      let answerArray = [];
+      $("select").each(function() {
+        let selectValue = $(this).val();
+        selectValue = parseInt(selectValue);
+        if (selectValue > 0){
+          answerArray.push(selectValue);
+        }
+      });
+
+      fullTest.roles = answerArray;
+      console.log(fullTest)
       return fullTest;
     },
 
@@ -301,6 +343,23 @@ export default {
     getTags() {
       return this.$store.getters.tags;
     },
+    getGroups: function() {
+      let grupy = this.$store.state.roles;
+      let filteredOut = ["ADMIN", "LEKTOR", "USER", "UNCONFIRMED"];
+      grupy = grupy.filter(function(element) {
+        return !filteredOut.includes(element.name);
+      });
+      let answArray = [];
+      $("select").each(function() {
+        let selectValue = $(this).val();
+        selectValue = parseInt(selectValue);
+        if (selectValue > 0){
+          answArray.push(selectValue);
+        }
+      });
+
+      return grupy;
+    },
     filteredTags: function() {
       this.allTagsTmp = this.getTags;
       let tags = this.allTagsTmp.filter(element => {
@@ -312,7 +371,6 @@ export default {
 
       return tags;
     },
-
     TestTmp: {
       get: function() {
         if (this.id) {
@@ -346,8 +404,7 @@ export default {
 .tag-class:hover {
   cursor: pointer;
 }
-
-.colored-tag {
-  background-color: lawngreen;
+.group-class:hover {
+  cursor: pointer;
 }
 </style>

@@ -1,12 +1,13 @@
 <template>
   <div class="table-responsive justify-content-center">
-    <button class="btn btn-success m-1" @click="modalAdd()">Dodaj test</button>
+    <button class="btn btn-success m-4" @click="modalAdd()">Dodaj test</button>
     <table class="table table-striped w-auto mx-auto">
       <thead>
         <tr>
           <td>Nazwa</td>
           <td>Autor</td>
           <td>Tagi</td>
+          <td>Grupy</td>
           <td></td>
         </tr>
       </thead>
@@ -19,9 +20,19 @@
             <div v-for="(tag, idx) in test.tags" :key="idx">{{tag.text}}</div>
           </td>
           <td class="align-middle">
+            <div v-if="test.roles.length === 0"> Brak </div>
+            <div v-for="(grupa, idx2) in test.roles" :key="idx2">{{grupa.name}}</div>
+          </td>
+          <td class="align-middle">
             <button class="btn btn-danger m-1 btn-rounded" @click="modalDelete(test.id)">Usuń</button>
             <button class="btn btn-primary m-1" @click="modalEdit(test.id, test)">Edytuj</button>
             <button class="btn btn-success m-1" @click="modalPodglad(test.id)">Podglad</button>
+            <router-link :to="'/crud/tests/reading-video/share/' + test.id">
+              <button class="btn btn-info m-1">Udostępnij</button>
+            </router-link>
+            <router-link :to="'/crud/tests/reading-video/wyniki/' + test.id">
+              <button class="btn btn-warning m-1">Wyniki</button>
+            </router-link>
           </td>
         </tr>
       </tbody>
@@ -48,7 +59,8 @@ export default {
   },
   data() {
     return {
-      idTmp: undefined
+      idTmp: undefined,
+      groups: this.$store.state.roles
     };
   },
   methods: {

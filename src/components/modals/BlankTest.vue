@@ -54,6 +54,31 @@
                     >Dodaj tag</button>
                   </div>
 
+                  <div class="m-1 col-sm">
+                    <h3>Grupy</h3>
+                    <div class="m-3 row">
+                      <div class="col-5" v-for="(ilosc, idx) in liczba_grup" :key="idx">
+                        <select name="sub_type" class=" form-control">
+                          <option v-for="(value, key) in getGroups" :value='value.id' :key='key'>
+                              {{value.name}}
+                          </option>
+                        </select>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-primary form-control col-1"
+                        title="Dodaj nową grupę"
+                        @click="addGroup()"
+                      >Dodaj</button>
+                        <button
+                          type="button"
+                          class="btn btn-danger form-control col-1"
+                          title="Usuń jedną grupę"
+                          @click="deleteGroup()"
+                        >X</button>
+                    </div>
+                  </div>
+
                   <vue-editor v-model="blankTmp.text" required/>
                   <div class="row">
                     <div class="col-6" v-for="(blank,blankId) in tempBlanks" :key="blankId">
@@ -122,7 +147,8 @@ export default {
         tagLimit: 25
       },
       allTags: [],
-      allTagsTmp: []
+      allTagsTmp: [],
+      liczba_grup: 1
     };
   },
   methods: {
@@ -131,6 +157,12 @@ export default {
         answer: "",
         correct: false
       });
+    },
+    addGroup(){
+      this.liczba_grup += 1;
+    },
+    deleteGroup(){
+      this.liczba_grup -= 1;
     },
 
     beginsWith(tagName) {
@@ -166,12 +198,21 @@ export default {
         blankSymbols: this.blankTmp.blankSymbols,
         tags: this.blankTmp.tags
       };
+      let answerArray = [];
+      $("select").each(function() {
+        let selectValue = $(this).val();
+        selectValue = parseInt(selectValue);
+        if (selectValue > 0){
+          answerArray.push(selectValue);
+        }
+      });
+      blankTest.roles = answerArray;
+      console.log(blankTest);
       let regex = /\{.*?\}/g;
       let match = this.blankTmp.text.match(regex);
       for (var i in match) {
         //blankTest.text = blankTest.text.replace(match[i], "{" + i + "}");
       }
-
       return blankTest;
     },
 
@@ -249,7 +290,14 @@ export default {
 
       return tags;
     },
-
+    getGroups: function() {
+      let grupy = this.$store.state.roles;
+      let filteredOut = ["ADMIN", "LEKTOR", "USER", "UNCONFIRMED"];
+      grupy = grupy.filter(function(element) {
+        return !filteredOut.includes(element.name);
+      });
+      return grupy;
+    },
     tempBlanks: function() {
       let regex = /\{.*?\}/g;
       let match = this.blankTmp.text.match(regex);

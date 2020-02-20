@@ -3,7 +3,7 @@
     <div class="modal-dialog mw-100 w-75">
       <div class="modal-content">
         <div class="modal-header">
-          <a class="modal-title font-weight-bold">Wypełnij pola</a>
+          <a class="modal-title font-weight-bold">Podglad testu: {{blankTmp.name}}</a>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">

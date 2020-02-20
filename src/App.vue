@@ -18,6 +18,8 @@ export default {
     this.$store.dispatch("loadTags");
     this.$store.dispatch("loadRVTests");
     this.$store.dispatch("loadGlossary");
+    this.$store.dispatch("loadRoles");
+    this.$store.dispatch("loadResults");
   }
 };
 </script>

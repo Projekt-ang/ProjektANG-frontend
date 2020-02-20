@@ -23,10 +23,10 @@
         <table table class="table table-striped table-hover table-bordered w-50 mx-auto">
           <thead>
             <th>Nazwa grupy</th>
-            <th>Akcja</th>
+            <th></th>
           </thead>
           <tbody>
-            <tr v-for="(group,groupId) in groups" :key="groupId">
+            <tr v-for="(group,groupId) in orderedGroups" :key="groupId">
               <td class="align-middle">{{group.name}}</td>
               <td class="align-middle">
                 <router-link :to="'/panel/lektor/group/'+group.id">
@@ -70,7 +70,7 @@ export default {
 
     deleteGroup(groupId) {
       this.$req
-        .delete("/api/roles", groupId)
+        .delete("/roles", groupId)
         .then(function() {
           alert("Usunięto poprawnie");
         })
@@ -83,10 +83,15 @@ export default {
     let filteredOut = ["ADMIN", "LEKTOR", "USER", "UNCONFIRMED"];
     this.$req.get("/roles").then(response => {
       this.groups = response.data._embedded.roles;
-      /*this.groups = this.groups.filter(function(element) {
+      this.groups = this.groups.filter(function(element) {
         return !filteredOut.includes(element.name);
-      });*/
+      });
     });
+  },
+  computed: {
+  orderedGroups: function () {
+    return _.orderBy(this.groups, 'name')
+}
   }
 };
 </script>

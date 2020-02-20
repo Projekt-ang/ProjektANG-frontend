@@ -1,20 +1,21 @@
 <template>
-  <div class="containter">
+  <div class="containter col-12">
     <div class="row">
       <h1 class="col-12 mb-5">Zarządzanie grupą: {{group.name}}</h1>
     </div>
     <div class="row">
-      <div class="col-12">
-        <button type="button" @click="saveGroup" class="btn btn-success mb-5 col-12">Zapisz grupę</button>
+      <div class="col-sm">
+        <button type="button" @click="saveGroup" class="btn btn-success mb-5 col-6">Zapisz grupę</button>
       </div>
     </div>
     <div class="row">
-      <div class="col-5">
+      <div class="col-sm">
+        <h1>Użytkownicy poza grupa</h1>
         <table table class="table table-striped table-hover table-bordered w-50 mx-auto">
           <thead>
             <th>Imię</th>
             <th>Nazwisko</th>
-            <th>Akcja</th>
+            <th></th>
           </thead>
           <tbody>
             <tr v-for="(user,userId) in notInGroup" :key="userId">
@@ -29,11 +30,12 @@
       </div>
       <div class="col-2"/>
       <div class="col-5">
+        <h1>Użytkownicy w grupie</h1>
         <table table class="table table-striped table-hover table-bordered w-50 mx-auto">
           <thead>
             <th>Imię</th>
             <th>Nazwisko</th>
-            <th>Akcja</th>
+            <th></th>
           </thead>
           <tbody>
             <tr v-for="(user,userId) in roleUsers" :key="userId">

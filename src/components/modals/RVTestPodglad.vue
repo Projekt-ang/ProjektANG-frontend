@@ -3,7 +3,7 @@
     <div class="modal-dialog mw-100 w-75">
       <div class="modal-content">
         <div class="modal-header">
-          <a class="modal-title font-weight-bold">Wypełnij pola</a>
+          <a class="modal-title font-weight-bold">Podglad testu: {{TestTmp.name}}</a>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
@@ -12,7 +12,7 @@
             <h3>Pytania</h3>
             <div class="row">
               <div class="col-6" v-for="(question, idx) in TestTmp.questions" :key="idx">
-                <h4 class="m-2">{{question.question}}</h4>
+                <h4 class="m-2">{{idx+1}}. {{question.question}}</h4>
                 <div
                   class="form-check"
                   v-for="(answer, idx2) in question.answers"

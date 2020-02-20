@@ -7,6 +7,7 @@
           <td>Nazwa</td>
           <td>Autor</td>
           <td>Tagi</td>
+          <td>Grupy</td>
           <td></td>
         </tr>
       </thead>
@@ -19,9 +20,19 @@
             <div v-for="(tag, idx) in test.tags" :key="idx">{{tag.text}}</div>
           </td>
           <td class="align-middle">
+            <div v-if="test.roles.length === 0"> Brak </div>
+            <div v-for="(grupa, idx2) in test.roles" :key="idx2">{{grupa.name}}</div>
+          </td>
+          <td class="align-middle">
             <button class="btn btn-danger m-1 btn-rounded" @click="modalDelete(test.id)">Usuń</button>
             <button class="btn btn-primary m-1" @click="modalEdit(test.id, test)">Edytuj</button>
             <button class="btn btn-success m-1" @click="modalPodglad(test.id)">Podglad</button>
+            <router-link :to="'/crud/tests/blank/share/' + test.id">
+              <button class="btn btn-info m-1">Udostępnij</button>
+            </router-link>
+            <router-link :to="'/crud/tests/blank/wyniki/' + test.id">
+              <button class="btn btn-warning m-1">Wyniki</button>
+            </router-link>
           </td>
         </tr>
       </tbody>

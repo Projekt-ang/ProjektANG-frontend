@@ -1,17 +1,22 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <h1 class="col-12">Ustawienia</h1>
-    </div>
-    <div class="row">
-      <div class="col-12" v-if="isLoggedIn">
-        <router-link :to="'/edit-password'">
-          <button class="btn-primary col-12 mt-3">zmień hasło</button>
-        </router-link>
-
-        <router-link :to="'/edit-mail'">
-          <button class="btn-primary col-12 mt-3">zmień e-mail</button>
-        </router-link>
+  <div class="vertical-center">
+    <div class="container">
+      <h1 class="m-4">Ustawienia</h1>
+      <div class="row">
+        <div class="col-sm">
+          <router-link :to="'/edit-password'">
+            <button class="btn btn-sq-lg btn-info">
+              <h2>Zmiana Hasła</h2>
+            </button>
+          </router-link>
+        </div>
+        <div class="col-sm">
+          <router-link :to="'/edit-mail'">
+            <button class="btn btn-sq-lg btn-success">
+              <h2>Zmiana Maila</h2>
+            </button>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
